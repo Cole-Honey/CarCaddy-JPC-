@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 data class Vehicle(
     @PrimaryKey
     @SerialName("VIN")
-    val vin: String?,
+    val vin: String,
     @SerialName("ModelYear")
     val year: String?,
     @SerialName("Make")
