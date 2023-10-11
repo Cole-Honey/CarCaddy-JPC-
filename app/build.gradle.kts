@@ -67,10 +67,11 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.runtime)
     implementation(libs.compose.livedata)
-    implementation(libs.compose.navigation)
     implementation(libs.compose.coil)
     implementation(libs.accompanist)
     implementation(libs.accompanist.indicator)
+    implementation(libs.compose.destinations)
+    ksp(libs.compose.destinations.compiler)
 
     // Lifecycle
     implementation(libs.lifecycle.runtime.ktx)

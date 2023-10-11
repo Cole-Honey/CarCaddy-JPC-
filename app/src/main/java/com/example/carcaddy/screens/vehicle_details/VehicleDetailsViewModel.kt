@@ -10,7 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,8 +18,8 @@ class VehicleDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel(){
 
-    var passedVehicle: Vehicle =
-        savedStateHandle.get<String>("vehicle")?.let { Json.decodeFromString(it) }
+    var passedVehicle: String =
+        savedStateHandle.get<String>("vin")
             ?: throw IllegalArgumentException("Expected Vehicle in Navigation, got nothing")
 
     var _vehicle = MutableStateFlow<Response<Vehicle>>(Response.Loading())
@@ -30,9 +29,9 @@ class VehicleDetailsViewModel @Inject constructor(
         getVehicleById(passedVehicle)
     }
 
-    fun getVehicleById(vehicle: Vehicle) {
+    fun getVehicleById(vin: String) {
         viewModelScope.launch {
-            repository.getVehicleByVin(vehicle)
+            repository.getVehicleFromDatabaseByVin(vin)
                 .collect {
                 _vehicle.value = it
             }

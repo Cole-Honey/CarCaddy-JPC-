@@ -29,32 +29,33 @@ fun VehicleDetailSuccess(
             // Image of the vehicle goes here
 
             // Vehicle VIN
-            Text(text = vin)
+            VehicleDetailText(vin)
 
             Column {
                 // Vehicle make
-                year?.let {
-                    Text(text = it)
-                }
+                VehicleDetailText(year)
 
                 // Vehicle model
-                make?.let {
-                    Text(text = it)
-                }
+                VehicleDetailText(make)
 
                 // Vehicle year
-                model?.let {
-                    Text(text = it)
-                }
+                VehicleDetailText(model)
 
                 // Vehicle mileage
-                mileage?.let {
-                    Text(text = it)
-                }
+                VehicleDetailText(mileage)
             }
 
             // Image of Vehicle Insurance
             // Image of Vehicle Registration
         }
+    }
+}
+
+@Composable
+fun VehicleDetailText(
+    text: String?,
+) {
+    text?.let {
+        Text(text = it)
     }
 }

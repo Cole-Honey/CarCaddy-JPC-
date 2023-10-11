@@ -15,53 +15,62 @@ import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailLoa
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailSuccess
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailsTopBar
 import com.example.carcaddy.utils.Response
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Destination
 @Composable
 fun VehicleDetailsScreen(
-    vehicle: Vehicle,
+    navigator: DestinationsNavigator,
     modifier: Modifier = Modifier,
     vehicleDetailsVM: VehicleDetailsViewModel = hiltViewModel()
 ) {
 
-    val vehicleVM by vehicleDetailsVM.vehicle.collectAsStateWithLifecycle()
+    // Use collectAsStateWithLifecycle to observe changes in the vehicle property
+    val vehicleState by vehicleDetailsVM.vehicle.collectAsStateWithLifecycle()
 
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState(), { true })
+    // De-structure the state to access the data or error message
+    val (vehicle, errorMessage) = when (vehicleState) {
+        is Response.Success -> {
+            val data = (vehicleState as Response.Success).data
+            data to null
+        }
+
+        is Response.Error -> {
+            null to "Error: ${(vehicleState as Response.Error).message}"
+        }
+
+        else -> {
+            null to null
+        }
+    }
+
+    val scrollBehavior =
+        TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState(), { true })
 
     Scaffold(
         topBar = {
-            vehicle.name?.let {
-                VehicleDetailsTopBar(
-                    name = it,
-                    scrollBehavior = scrollBehavior,
-                    openEditScreen = { /*TODO*/ },
-                    modifier = modifier
-                )
-            }
+            VehicleDetailsTopBar(
+                name = vehicle?.name ?: "Loading...", // Show "Loading..." while loading
+                scrollBehavior = scrollBehavior,
+                openEditScreen = { /*TODO*/ },
+                modifier = modifier
+            )
         },
     ) { innerPadding ->
 
-        when (val state = vehicleVM) {
-            is Response.Loading -> {
-                vehicle.name?.let { VehicleDetailLoading(name = it) }
-            }
+        if (vehicle != null) {
+            VehicleDetailSuccess(
+                vehicle = vehicle,
+                innerPadding = innerPadding
+            )
 
-            is Response.Success -> {
-                VehicleDetailSuccess(
-                    vehicle = state.data,
-                    innerPadding = innerPadding
-                )
-
-//                EditPopup(
-//                    vehicle = state.data,
-//                    openEditScreen = { /*TODO*/ },
-//                    modifier = modifier
-//                )
-            }
-
-            is Response.Error -> {
-                VehicleDetailError(message = "Error: ${state.message}")
-            }
+            // You can add an Edit button here when the data is loaded
+        } else if (errorMessage != null) {
+            VehicleDetailError(message = errorMessage)
+        } else {
+            VehicleDetailLoading(name = "Loading...") // Handle the loading state
         }
     }
 }

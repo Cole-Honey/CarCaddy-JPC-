@@ -12,7 +12,7 @@ interface VehicleDao {
     suspend fun getAllVehicles(): List<Vehicle>
 
     @Query("SELECT * FROM vehicle_table WHERE vin = :vin LIMIT 1")
-    suspend fun getVehicleByVin(vin: String): Vehicle?
+    suspend fun getVehicleFromDatabaseByVin(vin: String): Vehicle
 
     @Upsert
     suspend fun upsertVehicle(vehicle: Vehicle)

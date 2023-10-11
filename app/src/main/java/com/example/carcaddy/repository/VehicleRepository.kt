@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class VehicleRepository @Inject constructor(
@@ -31,26 +30,22 @@ class VehicleRepository @Inject constructor(
         }
     }
 
-    suspend fun getVehicleByVin(vehicle: Vehicle): Flow<Response<Vehicle>> = flow {
+    suspend fun getVehicleFromDatabaseByVin(vin: String): Flow<Response<Vehicle>> = flow {
         emit(Response.Loading())
 
-        try {
-            database.vehicleDao.getVehicleByVin(vehicle.vin)?.let {
-                emit(Response.Success(it))
-                return@flow
-            }
 
-            emit(Response.Success(vehicle))
-        } catch (e: Exception) {
-            emit(Response.Error(e.message))
+        database.vehicleDao.getVehicleFromDatabaseByVin(vin).let {
+            emit(Response.Success(it))
+            return@flow
         }
+
     }.flowOn(dispatcher)
 
     fun getAllVehicles(): Flow<Response<List<Vehicle>>> = flow {
         emit(Response.Loading())
 
         try {
-            var allVehicles = database.vehicleDao.getAllVehicles()
+            val allVehicles = database.vehicleDao.getAllVehicles()
 
             emit(Response.Success(allVehicles))
         } catch (e: Exception) {
