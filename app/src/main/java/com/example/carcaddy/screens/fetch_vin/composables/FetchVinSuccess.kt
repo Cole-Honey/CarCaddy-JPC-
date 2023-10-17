@@ -1,0 +1,11 @@
+package com.example.carcaddy.screens.fetch_vin.composables
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+
+@Composable
+fun FetchVinSuccess(
+    modifier: Modifier = Modifier
+) {
+
+}

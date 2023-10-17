@@ -9,6 +9,7 @@ compose-destinations = "1.9.53"
 compose-runtime = "1.5.3"
 compose-coil = "2.4.0"
 accompanist = "0.28.0"
+compose-icons = "1.4.3"
 
 # Lifecycle
 lifecycle-runtime-ktx = "2.6.1"
@@ -52,6 +53,7 @@ compose = { group = "androidx.compose.ui", name = "ui" }
 compose-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 compose-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose-icons" }
 compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "compose-runtime" }
 compose-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "compose-runtime" }
 compose-coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "compose-coil" }

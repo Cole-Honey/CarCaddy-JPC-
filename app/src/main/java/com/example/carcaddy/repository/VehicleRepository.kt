@@ -52,4 +52,8 @@ class VehicleRepository @Inject constructor(
             emit(Response.Error(e.message))
         }
     }.flowOn(dispatcher)
+
+    suspend fun addVehicleToDatabase(vehicle: Vehicle) {
+        database.vehicleDao.upsertVehicle(vehicle)
+    }
 }

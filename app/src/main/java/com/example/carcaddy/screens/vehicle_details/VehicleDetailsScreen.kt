@@ -9,7 +9,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.carcaddy.model.Vehicle
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailError
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailLoading
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailSuccess

@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.compose.graphics)
     implementation(libs.compose.tooling.preview)
     implementation(libs.compose.material3)
+    implementation(libs.compose.icons.extended)
     implementation(libs.compose.runtime)
     implementation(libs.compose.livedata)
     implementation(libs.compose.coil)
