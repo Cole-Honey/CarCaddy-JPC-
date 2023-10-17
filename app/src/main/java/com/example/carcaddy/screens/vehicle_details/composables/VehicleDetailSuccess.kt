@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.carcaddy.model.Vehicle
+import com.example.carcaddy.screens.composables.VehicleDetailText
 
 @Composable
 fun VehicleDetailSuccess(
@@ -51,11 +51,3 @@ fun VehicleDetailSuccess(
     }
 }
 
-@Composable
-fun VehicleDetailText(
-    text: String?,
-) {
-    text?.let {
-        Text(text = it)
-    }
-}

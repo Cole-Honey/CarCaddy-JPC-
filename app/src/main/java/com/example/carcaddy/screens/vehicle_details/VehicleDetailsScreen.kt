@@ -23,11 +23,11 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun VehicleDetailsScreen(
     navigator: DestinationsNavigator,
     modifier: Modifier = Modifier,
-    vehicleDetailsVM: VehicleDetailsViewModel = hiltViewModel()
+    viewModel: VehicleDetailsViewModel = hiltViewModel()
 ) {
 
     // Use collectAsStateWithLifecycle to observe changes in the vehicle property
-    val vehicleState by vehicleDetailsVM.vehicle.collectAsStateWithLifecycle()
+    val vehicleState by viewModel.vehicle.collectAsStateWithLifecycle()
 
     // De-structure the state to access the data or error message
     val (vehicle, errorMessage) = when (vehicleState) {

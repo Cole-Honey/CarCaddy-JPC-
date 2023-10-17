@@ -2,7 +2,6 @@ package com.example.carcaddy.screens.my_garage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.carcaddy.model.Vehicle
 import com.example.carcaddy.repository.VehicleRepository
 import com.example.carcaddy.utils.Response

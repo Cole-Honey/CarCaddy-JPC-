@@ -65,7 +65,7 @@ fun FetchVinScreen(
 
             is FetchVinViewModel.FetchResult.Success -> {
                 Text("Vehicle Fetched Successfully")
-//            navigator.navigate(MyGarageScreenDestination())
+//            navigator.navigate()
             }
 
             is FetchVinViewModel.FetchResult.Error -> {
