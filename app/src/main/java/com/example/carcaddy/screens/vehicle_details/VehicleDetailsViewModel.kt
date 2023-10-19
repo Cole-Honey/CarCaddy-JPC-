@@ -19,8 +19,6 @@ class VehicleDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel(){
 
-    var testVehicle = VehicleTestData.vehicleTestData
-
     var passedVehicle: String =
         savedStateHandle.get<String>("vin")
             ?: throw IllegalArgumentException("Expected Vehicle in Navigation, got nothing")
@@ -29,7 +27,7 @@ class VehicleDetailsViewModel @Inject constructor(
     val vehicle = _vehicle.asStateFlow()
 
     init {
-        addVehicleManualy()
+//        addVehicleManualy()
         getVehicleById(passedVehicle)
     }
 
@@ -42,11 +40,11 @@ class VehicleDetailsViewModel @Inject constructor(
         }
     }
 
-    fun addVehicleManualy() {
-        viewModelScope.launch {
-            val vehicle = VehicleTestData.vehicleTestData
-            repository.addVehicleToDatabase(vehicle)
-
-        }
-    }
+//    fun addVehicleManualy() {
+//        viewModelScope.launch {
+//            val vehicle = VehicleTestData.vehicleTestData1
+//            repository.addVehicleToDatabase(vehicle)
+//
+//        }
+//    }
 }

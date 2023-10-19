@@ -27,6 +27,7 @@ class MyGarageViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getAllVehicles().collect {
                 _vehicles.value = it
+                println("Vehicles list: ${_vehicles}")
             }
         }
     }

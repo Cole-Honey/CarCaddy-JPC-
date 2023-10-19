@@ -23,12 +23,13 @@ class VehicleRepository @Inject constructor(
         try {
             val fetchedVehicle = networkingService.getVehicleInfo(vin)
             database.vehicleDao.upsertVehicle(fetchedVehicle)
+            println("Vehicle Fetched Successfully in repository")
 
             emit(Response.Success(fetchedVehicle))
         } catch (e: Exception) {
             emit(Response.Error(e.message))
         }
-    }
+    }.flowOn(dispatcher)
 
     suspend fun getVehicleFromDatabaseByVin(vin: String): Flow<Response<Vehicle>> = flow {
         emit(Response.Loading())
