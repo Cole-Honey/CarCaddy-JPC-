@@ -26,6 +26,8 @@ fun VehicleDetailsScreen(
     viewModel: VehicleDetailsViewModel = hiltViewModel()
 ) {
 
+    val fillerName = "BATMOBILE"
+
     // Use collectAsStateWithLifecycle to observe changes in the vehicle property
     val vehicleState by viewModel.vehicle.collectAsStateWithLifecycle()
 

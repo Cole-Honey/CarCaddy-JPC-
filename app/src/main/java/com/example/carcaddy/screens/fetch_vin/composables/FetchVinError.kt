@@ -28,6 +28,7 @@ fun FetchVinError(
 //            text = "Something went wrong!",
                     textAlign = TextAlign.Center
                 )
+                println(message)
             }
         }
     }

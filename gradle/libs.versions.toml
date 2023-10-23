@@ -18,6 +18,7 @@ compose-viewmodel = "2.6.1"
 
 # Networking
 ktor = "2.3.2"
+gson = "2.10.1"
 
 # Database
 room = "2.5.2"
@@ -73,6 +74,7 @@ ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor"
 ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+gson = { group = "com.google.code.gson", name = "gson", version = "2.10.1"}
 
 # Database
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }

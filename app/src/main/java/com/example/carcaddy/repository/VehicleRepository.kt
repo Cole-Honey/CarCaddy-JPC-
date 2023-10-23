@@ -22,7 +22,7 @@ class VehicleRepository @Inject constructor(
 
         try {
             val fetchedVehicle = networkingService.getVehicleInfo(vin)
-            database.vehicleDao.upsertVehicle(fetchedVehicle)
+            database.vehicleDao().upsertVehicle(fetchedVehicle)
             println("Vehicle Fetched Successfully in repository")
 
             emit(Response.Success(fetchedVehicle))
@@ -31,11 +31,12 @@ class VehicleRepository @Inject constructor(
         }
     }.flowOn(dispatcher)
 
+
     suspend fun getVehicleFromDatabaseByVin(vin: String): Flow<Response<Vehicle>> = flow {
         emit(Response.Loading())
 
 
-        database.vehicleDao.getVehicleFromDatabaseByVin(vin).let {
+        database.vehicleDao().getVehicleFromDatabaseByVin(vin).let {
             emit(Response.Success(it))
             return@flow
         }
@@ -46,7 +47,7 @@ class VehicleRepository @Inject constructor(
         emit(Response.Loading())
 
         try {
-            val allVehicles = database.vehicleDao.getAllVehicles()
+            val allVehicles = database.vehicleDao().getAllVehicles()
 
             emit(Response.Success(allVehicles))
         } catch (e: Exception) {
@@ -55,6 +56,6 @@ class VehicleRepository @Inject constructor(
     }.flowOn(dispatcher)
 
     suspend fun addVehicleToDatabase(vehicle: Vehicle) {
-        database.vehicleDao.upsertVehicle(vehicle)
+        database.vehicleDao().upsertVehicle(vehicle)
     }
 }

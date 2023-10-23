@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.ktor.android)
     implementation(libs.ktor.content.negotiation)
     implementation(libs.ktor.serialization)
+    implementation(libs.gson)
 
     // Database
     implementation(libs.room.runtime)
