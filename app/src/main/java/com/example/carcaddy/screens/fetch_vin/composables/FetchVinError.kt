@@ -23,12 +23,9 @@ fun FetchVinError(
     ) {
         LazyColumn {
             item {
-                Text(
-                    text = message ?: "Something went wrong!",
-//            text = "Something went wrong!",
-                    textAlign = TextAlign.Center
-                )
+                println("---------------ERROR MESSAGE---------------")
                 println(message)
+                println("---------------ERROR MESSAGE---------------")
             }
         }
     }

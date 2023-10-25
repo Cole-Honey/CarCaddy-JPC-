@@ -38,7 +38,6 @@ fun FetchVinScreen(
         if (viewModel.vinSearchText.toString().isNotEmpty()) {
             viewModel.fetchVehicleByVin(
                 viewModel.vinSearchText.value,
-//                viewModel.yearSearchText.toString()
             )
         }
     }
