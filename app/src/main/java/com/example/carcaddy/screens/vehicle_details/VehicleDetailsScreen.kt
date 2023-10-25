@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.carcaddy.model.VehicleWithLogs
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailError
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailLoading
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailSuccess
@@ -21,6 +22,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Destination
 @Composable
 fun VehicleDetailsScreen(
+    vin: String,
     navigator: DestinationsNavigator,
     modifier: Modifier = Modifier,
     viewModel: VehicleDetailsViewModel = hiltViewModel()
@@ -53,7 +55,7 @@ fun VehicleDetailsScreen(
     Scaffold(
         topBar = {
             VehicleDetailsTopBar(
-                name = vehicle?.name ?: "Loading...", // Show "Loading..." while loading
+                name = vehicle?.name ?: vehicle?.model ?: "--", // Show "Loading..." while loading
                 scrollBehavior = scrollBehavior,
                 openEditScreen = { /*TODO*/ },
                 modifier = modifier

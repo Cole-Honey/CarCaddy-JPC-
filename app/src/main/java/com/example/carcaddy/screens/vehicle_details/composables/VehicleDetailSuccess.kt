@@ -12,12 +12,10 @@ import com.example.carcaddy.screens.composables.VehicleDetailText
 
 @Composable
 fun VehicleDetailSuccess(
-    vehicle: Vehicle,
+    vehicle: Vehicle?,
     innerPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
-    // Destructure vehicle properties for cleaner code
-    val (vin, year, make, model, mileage) = vehicle
 
     LazyColumn(
         contentPadding = innerPadding,
@@ -29,20 +27,20 @@ fun VehicleDetailSuccess(
             // Image of the vehicle goes here
 
             // Vehicle VIN
-            VehicleDetailText(vin)
+            VehicleDetailText(vehicle?.vin)
 
             Column {
                 // Vehicle make
-                VehicleDetailText(year)
+                VehicleDetailText(vehicle?.year)
 
                 // Vehicle model
-                VehicleDetailText(make)
+                VehicleDetailText(vehicle?.make)
 
                 // Vehicle year
-                VehicleDetailText(model)
+                VehicleDetailText(vehicle?.model)
 
                 // Vehicle mileage
-                VehicleDetailText(mileage)
+                VehicleDetailText(vehicle?.mileage)
             }
 
             // Image of Vehicle Insurance

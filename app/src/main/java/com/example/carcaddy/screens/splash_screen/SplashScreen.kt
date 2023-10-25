@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import com.example.carcaddy.screens.destinations.FetchVinScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -22,12 +24,16 @@ fun SplashScreen(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        contentAlignment = Alignment.Center,
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
         // Add logo, animation, or any other content here
-        Text(text = "Car Caddy")
+        Text(
+            text = "Car Caddy",
+            fontSize = 45.sp
+        )
 
         // Navigate to the next screen
         LaunchedEffect(Unit) {

@@ -14,7 +14,7 @@ interface VehicleDao {
     suspend fun getVehicleFromDatabaseByVin(vin: String): Vehicle
 
     @Transaction
-    @Query("SELECT * FROM vehicle_table ORDER BY make")
+    @Query("SELECT * FROM vehicle_table ORDER BY year DESC")
     fun getVehicleWithLogs(): List<VehicleWithLogs>
 
     @Upsert

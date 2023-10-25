@@ -16,13 +16,14 @@ import com.example.carcaddy.screens.composables.VehicleDetailText
 @Composable
 fun GarageListItem(
     vehicle: VehicleWithLogs,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: () -> Unit
 ) {
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
-        modifier = modifier
+        modifier = modifier.clickable { onItemClick() }
     ) {
 
         // Image of vehicle goes here

@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.carcaddy.screens.destinations.VehicleDetailsScreenDestination
 import com.example.carcaddy.screens.my_garage.composables.MyGarageError
 import com.example.carcaddy.screens.my_garage.composables.MyGarageLoading
 import com.example.carcaddy.screens.my_garage.composables.MyGarageSuccess
@@ -59,6 +60,9 @@ fun MyGarageScreen(
             MyGarageSuccess(
                 vehicles = vehicle,
                 innerPadding = innerPadding,
+                onItemClick = { selectedVehicle ->
+                    navigator.navigate(VehicleDetailsScreenDestination(selectedVehicle.vehicle.vin))
+                }
             )
             println("Successfully loaded vehicles")
         } else if (errorMessage != null) {
