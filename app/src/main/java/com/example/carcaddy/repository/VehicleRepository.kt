@@ -2,6 +2,7 @@ package com.example.carcaddy.repository
 
 import com.example.carcaddy.database.VehicleDatabase
 import com.example.carcaddy.model.Vehicle
+import com.example.carcaddy.model.VehicleWithLogs
 import com.example.carcaddy.network.VehicleService
 import com.example.carcaddy.utils.Response
 import kotlinx.coroutines.Dispatchers
@@ -43,19 +44,15 @@ class VehicleRepository @Inject constructor(
 
     }.flowOn(dispatcher)
 
-    fun getAllVehicles(): Flow<Response<List<Vehicle>>> = flow {
+    fun getVehicleWithLogs(): Flow<Response<List<VehicleWithLogs>>> = flow {
         emit(Response.Loading())
 
         try {
-            val allVehicles = database.vehicleDao().getAllVehicles()
+            val allVehicles = database.vehicleDao().getVehicleWithLogs()
 
             emit(Response.Success(allVehicles))
         } catch (e: Exception) {
             emit(Response.Error(e.message))
         }
     }.flowOn(dispatcher)
-
-    suspend fun addVehicleToDatabase(vehicle: Vehicle) {
-        database.vehicleDao().upsertVehicle(vehicle)
-    }
 }

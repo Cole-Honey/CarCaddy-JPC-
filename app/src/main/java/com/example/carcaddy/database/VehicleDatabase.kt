@@ -7,10 +7,16 @@ import androidx.room.RoomDatabase
 import com.example.carcaddy.model.MaintenanceLog
 import com.example.carcaddy.model.Vehicle
 
-@Database(entities = [Vehicle::class, MaintenanceLog::class], version = 2, exportSchema = false)
+@Database(
+    entities = [
+        Vehicle::class,
+        MaintenanceLog::class
+    ],
+    version = 3,
+    exportSchema = false
+)
 abstract class VehicleDatabase : RoomDatabase() {
     abstract fun vehicleDao(): VehicleDao
-//    abstract fun maintenanceLogDao(): MaintenanceDao
 
     companion object {
         @Volatile

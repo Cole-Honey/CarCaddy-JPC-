@@ -64,10 +64,7 @@ fun FetchVinScreen(
         // Display loading, success, or error based on the fetchResult
         when (fetchResult) {
             is Response.Loading -> {
-                FetchVinLoading(
-                    vin = viewModel.vinSearchText.toString(),
-                    year = viewModel.yearSearchText.toString()
-                )
+                FetchVinLoading()
             }
 
             is Response.Success -> {

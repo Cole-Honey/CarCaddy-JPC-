@@ -3,6 +3,7 @@ package com.example.carcaddy.screens.my_garage
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carcaddy.model.Vehicle
+import com.example.carcaddy.model.VehicleWithLogs
 import com.example.carcaddy.repository.VehicleRepository
 import com.example.carcaddy.utils.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,7 @@ class MyGarageViewModel @Inject constructor(
     private val repository: VehicleRepository
 ): ViewModel() {
 
-    var _vehicles = MutableStateFlow<Response<List<Vehicle>>>(Response.Loading())
+    var _vehicles = MutableStateFlow<Response<List<VehicleWithLogs>>>(Response.Loading())
     val vehicles = _vehicles.asStateFlow()
 
     init {
@@ -25,9 +26,9 @@ class MyGarageViewModel @Inject constructor(
 
     fun getVehicles() {
         viewModelScope.launch {
-            repository.getAllVehicles().collect {
+            repository.getVehicleWithLogs().collect {
                 _vehicles.value = it
-                println("Vehicles list: ${_vehicles}")
+                println("Vehicles list: $_vehicles")
             }
         }
     }

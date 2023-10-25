@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Entity(tableName = "vehicle_table")
 data class Vehicle(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     @SerialName("VIN")
     val vin: String,
     @SerialName("ModelYear")
@@ -27,18 +27,10 @@ data class Vehicle(
     val name: String? = null,
 )
 
+
+// Fetching Vehicle From API and converting Results object to a Vehicle Object
 @Serializable
 data class VehicleResponse(
     @SerialName("Results")
     val results: List<Vehicle>
 )
-
-
-
-//    @Relation(
-//        parentColumn = "vin", // The column in the Vehicle entity
-//        entity = MaintenanceLog::class,
-//        entityColumn = "vehicleVin", // The column in the MaintenanceLog entity
-//        associateBy = Junction(VehicleMaintenanceCrossRef::class)
-//    )
-//    val maintenanceLogs: List<MaintenanceLog> // List of maintenance logs for this vehicle

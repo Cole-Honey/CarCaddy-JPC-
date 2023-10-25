@@ -14,8 +14,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FetchVinLoading(
-    vin: String,
-    year: String,
     modifier: Modifier = Modifier
 ) {
     Column(
