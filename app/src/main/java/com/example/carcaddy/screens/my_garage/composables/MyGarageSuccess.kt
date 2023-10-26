@@ -1,8 +1,11 @@
 package com.example.carcaddy.screens.my_garage.composables
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
@@ -17,7 +20,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun MyGarageSuccess(
     vehicles: List<VehicleWithLogs>?,
     innerPadding: PaddingValues,
-    onItemClick: (VehicleWithLogs) -> Unit, // Add onItemClick as a parameter
+    onItemClick: (VehicleWithLogs) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -27,8 +30,12 @@ fun MyGarageSuccess(
         horizontalAlignment = Alignment.Start
     ) {
         vehicles?.let { vehicleList ->
-            itemsIndexed(vehicleList) { index, vehicle ->
-                GarageListItem(vehicle = vehicle, onItemClick = { onItemClick(vehicle) })
+            items(vehicleList) { vehicle ->
+                Column(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                ) {
+                    GarageListItem(vehicle = vehicle, onItemClick = { onItemClick(vehicle) })
+                }
                 Divider(
                     color = Color.Black,
                     thickness = 1.dp
@@ -37,5 +44,3 @@ fun MyGarageSuccess(
         }
     }
 }
-
-

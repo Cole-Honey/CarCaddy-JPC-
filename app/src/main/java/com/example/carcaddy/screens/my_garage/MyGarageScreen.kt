@@ -9,10 +9,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.carcaddy.screens.destinations.FetchVinScreenDestination
 import com.example.carcaddy.screens.destinations.VehicleDetailsScreenDestination
+import com.example.carcaddy.screens.my_garage.composables.MyGarageEmpty
 import com.example.carcaddy.screens.my_garage.composables.MyGarageError
 import com.example.carcaddy.screens.my_garage.composables.MyGarageLoading
 import com.example.carcaddy.screens.my_garage.composables.MyGarageSuccess
+import com.example.carcaddy.screens.my_garage.composables.MyGarageTopBar
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailsTopBar
 import com.example.carcaddy.utils.Response
 import com.ramcosta.composedestinations.annotation.Destination
@@ -48,15 +51,15 @@ fun MyGarageScreen(
 
     Scaffold(
         topBar = {
-            VehicleDetailsTopBar(
+            MyGarageTopBar(
                 name = "My Garage",
                 scrollBehavior = scrollBehavior,
-                openEditScreen = { /*TODO*/ },
+                openScreen = { navigator.navigate(direction = FetchVinScreenDestination) },
                 modifier = modifier
             )
         }
     ) { innerPadding ->
-        if (vehicle != null) {
+        if (vehicle != null && vehicle.isNotEmpty()) {
             MyGarageSuccess(
                 vehicles = vehicle,
                 innerPadding = innerPadding,
@@ -69,9 +72,11 @@ fun MyGarageScreen(
             MyGarageError(message = errorMessage)
             println("Error loading vehicles")
         } else {
-            MyGarageLoading(name = "Loading...")
+            MyGarageEmpty() // Display a component for an empty garage
         }
     }
 }
+
+
 
 

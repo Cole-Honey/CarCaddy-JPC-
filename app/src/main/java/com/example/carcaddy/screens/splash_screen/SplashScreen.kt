@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import com.example.carcaddy.screens.destinations.FetchVinScreenDestination
+import com.example.carcaddy.screens.destinations.MyGarageScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -39,7 +40,7 @@ fun SplashScreen(
         LaunchedEffect(Unit) {
             delay(500) // Adjust the delay as needed
             navigator.navigate(
-                direction = FetchVinScreenDestination // Call your navigation function here
+                direction = MyGarageScreenDestination // Call your navigation function here
             )
         }
     }

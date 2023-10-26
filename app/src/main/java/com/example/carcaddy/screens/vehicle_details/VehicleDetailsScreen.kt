@@ -1,11 +1,15 @@
 package com.example.carcaddy.screens.vehicle_details
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -27,8 +31,6 @@ fun VehicleDetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: VehicleDetailsViewModel = hiltViewModel()
 ) {
-
-    val fillerName = "BATMOBILE"
 
     // Use collectAsStateWithLifecycle to observe changes in the vehicle property
     val vehicleState by viewModel.vehicle.collectAsStateWithLifecycle()
@@ -55,25 +57,31 @@ fun VehicleDetailsScreen(
     Scaffold(
         topBar = {
             VehicleDetailsTopBar(
-                name = vehicle?.name ?: vehicle?.model ?: "--", // Show "Loading..." while loading
+                name = vehicle?.name ?: vehicle?.model ?: "--",
                 scrollBehavior = scrollBehavior,
-                openEditScreen = { /*TODO*/ },
+                openScreen = { /*TODO Navigate to edit vehicle info screen*/ },
                 modifier = modifier
             )
         },
     ) { innerPadding ->
 
-        if (vehicle != null) {
-            VehicleDetailSuccess(
-                vehicle = vehicle,
-                innerPadding = innerPadding
-            )
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (vehicle != null) {
+                VehicleDetailSuccess(
+                    vehicle = vehicle,
+                    innerPadding = innerPadding
+                )
 
-            // You can add an Edit button here when the data is loaded
-        } else if (errorMessage != null) {
-            VehicleDetailError(message = errorMessage)
-        } else {
-            VehicleDetailLoading(name = "Loading...") // Handle the loading state
+                // You can add an Edit button here when the data is loaded
+            } else if (errorMessage != null) {
+                VehicleDetailError(message = errorMessage)
+            } else {
+                VehicleDetailLoading(name = "Loading...") // Handle the loading state
+            }
         }
     }
 }

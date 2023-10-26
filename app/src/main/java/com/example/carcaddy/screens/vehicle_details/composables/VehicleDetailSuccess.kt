@@ -3,6 +3,7 @@ package com.example.carcaddy.screens.vehicle_details.composables
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,36 +17,36 @@ fun VehicleDetailSuccess(
     innerPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
-
     LazyColumn(
         contentPadding = innerPadding,
-        modifier = modifier,
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
     ) {
         item {
             // Image of the vehicle goes here
+        }
 
+        item {
             // Vehicle VIN
             VehicleDetailText(vehicle?.vin)
+        }
 
-            Column {
-                // Vehicle make
-                VehicleDetailText(vehicle?.year)
-
-                // Vehicle model
-                VehicleDetailText(vehicle?.make)
-
-                // Vehicle year
-                VehicleDetailText(vehicle?.model)
-
-                // Vehicle mileage
-                VehicleDetailText(vehicle?.mileage)
+        // Push up VehicleInformationColumn to the left side
+        item {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                VehicleInformation(vehicle = vehicle)
             }
+        }
 
+        item {
             // Image of Vehicle Insurance
             // Image of Vehicle Registration
         }
     }
 }
+
 
