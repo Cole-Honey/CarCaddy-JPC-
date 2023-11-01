@@ -14,18 +14,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.carcaddy.screens.destinations.MyGarageScreenDestination
+import androidx.navigation.NavController
 import com.example.carcaddy.screens.fetch_vin.composables.FetchVinError
 import com.example.carcaddy.screens.fetch_vin.composables.FetchVinLoading
 import com.example.carcaddy.screens.fetch_vin.composables.SearchBar
+import com.example.carcaddy.screens.navigation.Directions
 import com.example.carcaddy.utils.Response
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination
 @Composable
 fun FetchVinScreen(
-    navigator: DestinationsNavigator,
+    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: FetchVinViewModel = hiltViewModel()
 ) {
@@ -68,7 +66,7 @@ fun FetchVinScreen(
             }
 
             is Response.Success -> {
-                navigator.navigate(MyGarageScreenDestination)
+                navController.navigate(Directions.MyGarage.path)
             }
 
             is Response.Error -> {

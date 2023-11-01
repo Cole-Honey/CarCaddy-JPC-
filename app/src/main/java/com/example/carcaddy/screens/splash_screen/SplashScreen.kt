@@ -10,18 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
-import com.example.carcaddy.screens.destinations.FetchVinScreenDestination
-import com.example.carcaddy.screens.destinations.MyGarageScreenDestination
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavController
+import com.example.carcaddy.screens.navigation.Directions
 import kotlinx.coroutines.delay
 
-@RootNavGraph(start = true)
-@Destination
 @Composable
 fun SplashScreen(
-    navigator: DestinationsNavigator,
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -39,9 +34,7 @@ fun SplashScreen(
         // Navigate to the next screen
         LaunchedEffect(Unit) {
             delay(500) // Adjust the delay as needed
-            navigator.navigate(
-                direction = MyGarageScreenDestination // Call your navigation function here
-            )
+            navController.navigate(Directions.MyGarage.path)
         }
     }
 }

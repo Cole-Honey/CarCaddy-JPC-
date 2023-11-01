@@ -20,10 +20,6 @@ class MyGarageViewModel @Inject constructor(
     var _vehicles = MutableStateFlow<Response<List<VehicleWithLogs>>>(Response.Loading())
     val vehicles = _vehicles.asStateFlow()
 
-    init {
-        getVehicles()
-    }
-
     fun getVehicles() {
         viewModelScope.launch {
             repository.getVehicleWithLogs().collect {

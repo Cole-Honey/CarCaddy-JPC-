@@ -1,35 +1,36 @@
 package com.example.carcaddy.screens.my_garage
 
+import android.util.Log
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.carcaddy.screens.destinations.FetchVinScreenDestination
-import com.example.carcaddy.screens.destinations.VehicleDetailsScreenDestination
+import androidx.navigation.NavController
 import com.example.carcaddy.screens.my_garage.composables.MyGarageEmpty
 import com.example.carcaddy.screens.my_garage.composables.MyGarageError
-import com.example.carcaddy.screens.my_garage.composables.MyGarageLoading
 import com.example.carcaddy.screens.my_garage.composables.MyGarageSuccess
 import com.example.carcaddy.screens.my_garage.composables.MyGarageTopBar
-import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailsTopBar
 import com.example.carcaddy.utils.Response
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.example.carcaddy.screens.navigation.Directions
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Destination
 @Composable
 fun MyGarageScreen(
-    navigator: DestinationsNavigator,
+    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: MyGarageViewModel = hiltViewModel()
 ) {
     val vehiclesState by viewModel.vehicles.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.getVehicles()
+    }
 
     val (vehicle, errorMessage) = when (vehiclesState) {
         is Response.Success -> {
@@ -54,7 +55,7 @@ fun MyGarageScreen(
             MyGarageTopBar(
                 name = "My Garage",
                 scrollBehavior = scrollBehavior,
-                openScreen = { navigator.navigate(direction = FetchVinScreenDestination) },
+                openScreen = { navController.navigate(Directions.FetchVin.path) }, // Use a Composable lambda
                 modifier = modifier
             )
         }
@@ -64,7 +65,8 @@ fun MyGarageScreen(
                 vehicles = vehicle,
                 innerPadding = innerPadding,
                 onItemClick = { selectedVehicle ->
-                    navigator.navigate(VehicleDetailsScreenDestination(selectedVehicle.vehicle.vin))
+                    navController.navigate(Directions.TabBar.path + "/${selectedVehicle.vehicle.vin}")
+                    Log.d("Navigation", "The Passed VIN Was: ${selectedVehicle.vehicle.vin}")
                 }
             )
             println("Successfully loaded vehicles")
@@ -77,6 +79,13 @@ fun MyGarageScreen(
     }
 }
 
-
-
-
+//@Composable
+//fun navigateToFetchVinScreen(navController: NavController) {
+//    navController.navigate(Directions.FetchVin.path)
+//}
+//
+//@Composable
+//fun navigateToTabBarScreen(navController: NavController, vin: String) {
+//    val route = "${Directions.TabBar.path}/$vin"
+//    navController.navigate(route)
+//}

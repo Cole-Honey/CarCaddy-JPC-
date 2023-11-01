@@ -15,7 +15,7 @@ interface VehicleDao {
 
     @Transaction
     @Query("SELECT * FROM vehicle_table ORDER BY year DESC")
-    fun getVehicleWithLogs(): List<VehicleWithLogs>
+    fun getVehiclesWithLogs(): List<VehicleWithLogs>
 
     @Update
     suspend fun updateVehicle(vehicle: Vehicle)

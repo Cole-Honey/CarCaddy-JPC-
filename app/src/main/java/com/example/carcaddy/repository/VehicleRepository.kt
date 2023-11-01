@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class VehicleRepository @Inject constructor(
@@ -48,11 +49,17 @@ class VehicleRepository @Inject constructor(
         emit(Response.Loading())
 
         try {
-            val allVehicles = database.vehicleDao().getVehicleWithLogs()
+            val allVehicles = database.vehicleDao().getVehiclesWithLogs()
 
             emit(Response.Success(allVehicles))
         } catch (e: Exception) {
             emit(Response.Error(e.message))
         }
     }.flowOn(dispatcher)
+
+    suspend fun updateVehicle(vehicle: Vehicle) {
+        return withContext(dispatcher) {
+            return@withContext database.vehicleDao().updateVehicle(vehicle)
+        }
+    }
 }
