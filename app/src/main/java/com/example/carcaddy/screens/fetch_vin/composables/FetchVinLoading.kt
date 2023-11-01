@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FetchVinLoading(
-    vin: String,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -24,7 +23,7 @@ fun FetchVinLoading(
             .fillMaxWidth()
             .height(160.dp)
     ) {
-        Text(text = "Fetching Vehicle VIN: $vin")
+//        Text(text = "Fetching Vehicle VIN: $vin")
         CircularProgressIndicator()
     }
 }

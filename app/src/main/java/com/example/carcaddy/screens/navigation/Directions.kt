@@ -9,4 +9,5 @@ sealed class Directions(
     data object FetchVin: Directions("fetch_vin")
     data object GoogleMaps: Directions("google_maps")
     data object Maintenance: Directions("maintenance")
+    data object TabBar: Directions("tab_bar")
 }

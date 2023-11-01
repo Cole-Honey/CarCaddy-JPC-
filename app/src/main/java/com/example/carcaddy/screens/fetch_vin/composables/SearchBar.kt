@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.MaterialTheme
@@ -24,26 +23,26 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SearchBar(
-    searchTerm: MutableState<String>,
+    searchTerm1: MutableState<String>,
+//    searchTerm2: MutableState<String>,
     searchFun: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
 
-
     OutlinedTextField(
-        value = searchTerm.value,
+        value = searchTerm1.value,
         onValueChange = {
-            searchTerm.value = it
+            searchTerm1.value = it
         },
         singleLine = true,
         label = { Text("Enter VIN") },
         leadingIcon = {
             FetchButton(
                 onClickLambda = {
-                    if (searchTerm.value.isNotEmpty()) {
-                        searchFun(searchTerm.value)
+                    if (searchTerm1.value.isNotEmpty()) {
+                        searchFun(searchTerm1.value)
                         focusManager.clearFocus()
                     }
                 },
@@ -56,7 +55,7 @@ fun SearchBar(
         ),
         keyboardActions = KeyboardActions(
             onSearch = {
-                searchFun(searchTerm.value)
+                searchFun(searchTerm1.value)
                 focusManager.clearFocus()
             },
             onDone = {
@@ -73,4 +72,46 @@ fun SearchBar(
             .padding(horizontal = 16.dp)
             .focusRequester(focusRequester)
     )
+
+//    OutlinedTextField(
+//        value = searchTerm2.value,
+//        onValueChange = {
+//            searchTerm2.value = it
+//        },
+//        singleLine = true,
+//        label = { Text("Enter Year") },
+//        leadingIcon = {
+//            FetchButton(
+//                onClickLambda = {
+//                    if (searchTerm2.value.isNotEmpty()) {
+//                        searchFun(searchTerm1.value)
+//                        focusManager.clearFocus()
+//                    }
+//                },
+//                image = Icons.Outlined.Search,
+//                desc = "Search"
+//            )
+//        },
+//        keyboardOptions = KeyboardOptions(
+//            imeAction = ImeAction.Search
+//        ),
+//        keyboardActions = KeyboardActions(
+//            onSearch = {
+//                searchFun(searchTerm1.value)
+//                focusManager.clearFocus()
+//            },
+//            onDone = {
+//                focusManager.clearFocus()
+//            }
+//        ),
+//        shape = RoundedCornerShape(25.dp),
+//        colors = TextFieldDefaults.colors(
+//            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+//            unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
+//        ),
+//        modifier = modifier
+//            .fillMaxWidth()
+//            .padding(horizontal = 16.dp)
+//            .focusRequester(focusRequester)
+//    )
 }

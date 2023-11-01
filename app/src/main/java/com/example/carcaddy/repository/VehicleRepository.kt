@@ -2,12 +2,14 @@ package com.example.carcaddy.repository
 
 import com.example.carcaddy.database.VehicleDatabase
 import com.example.carcaddy.model.Vehicle
+import com.example.carcaddy.model.VehicleWithLogs
 import com.example.carcaddy.network.VehicleService
 import com.example.carcaddy.utils.Response
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class VehicleRepository @Inject constructor(
@@ -22,30 +24,32 @@ class VehicleRepository @Inject constructor(
 
         try {
             val fetchedVehicle = networkingService.getVehicleInfo(vin)
-            database.vehicleDao.upsertVehicle(fetchedVehicle)
+            database.vehicleDao().updateVehicle(fetchedVehicle)
+            println("Vehicle Fetched Successfully in repository")
 
             emit(Response.Success(fetchedVehicle))
         } catch (e: Exception) {
             emit(Response.Error(e.message))
         }
-    }
+    }.flowOn(dispatcher)
+
 
     suspend fun getVehicleFromDatabaseByVin(vin: String): Flow<Response<Vehicle>> = flow {
         emit(Response.Loading())
 
 
-        database.vehicleDao.getVehicleFromDatabaseByVin(vin).let {
+        database.vehicleDao().getVehicleFromDatabaseByVin(vin).let {
             emit(Response.Success(it))
             return@flow
         }
 
     }.flowOn(dispatcher)
 
-    fun getAllVehicles(): Flow<Response<List<Vehicle>>> = flow {
+    fun getVehicleWithLogs(): Flow<Response<List<VehicleWithLogs>>> = flow {
         emit(Response.Loading())
 
         try {
-            val allVehicles = database.vehicleDao.getAllVehicles()
+            val allVehicles = database.vehicleDao().getVehiclesWithLogs()
 
             emit(Response.Success(allVehicles))
         } catch (e: Exception) {
@@ -53,7 +57,9 @@ class VehicleRepository @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-    suspend fun addVehicleToDatabase(vehicle: Vehicle) {
-        database.vehicleDao.upsertVehicle(vehicle)
+    suspend fun updateVehicle(vehicle: Vehicle) {
+        return withContext(dispatcher) {
+            return@withContext database.vehicleDao().updateVehicle(vehicle)
+        }
     }
 }

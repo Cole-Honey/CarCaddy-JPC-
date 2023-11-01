@@ -1,8 +1,7 @@
-package com.example.carcaddy.screens.vehicle_details.composables
+package com.example.carcaddy.screens.my_garage.composables
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,7 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VehicleDetailsTopBar(
+fun MyGarageTopBar(
     name: String,
     scrollBehavior: TopAppBarScrollBehavior,
     openScreen: () -> Unit,
@@ -40,8 +39,8 @@ fun VehicleDetailsTopBar(
         actions = {
             IconButton(onClick = openScreen) {
                 Icon(
-                    imageVector = Icons.Filled.Edit,
-                    contentDescription = "Edit Vehicle Info",
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = "Add Vehicle To Garage",
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
             }

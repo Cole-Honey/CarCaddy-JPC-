@@ -3,6 +3,7 @@ package com.example.carcaddy.screens.fetch_vin.composables
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,9 +21,12 @@ fun FetchVinError(
         modifier = modifier
             .fillMaxWidth()
     ) {
-        Text(
-            text = message ?: "Something went wrong!",
-            textAlign = TextAlign.Center
-        )
+        LazyColumn {
+            item {
+                println("---------------ERROR MESSAGE---------------")
+                println(message)
+                println("---------------ERROR MESSAGE---------------")
+            }
+        }
     }
 }

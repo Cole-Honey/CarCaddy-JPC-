@@ -2,18 +2,21 @@ package com.example.carcaddy.database
 
 import androidx.room.Dao
 import androidx.room.Query
-import androidx.room.Upsert
+import androidx.room.Transaction
+import androidx.room.Update
 import com.example.carcaddy.model.Vehicle
+import com.example.carcaddy.model.VehicleWithLogs
 
 @Dao
 interface VehicleDao {
 
-    @Query("SELECT * FROM vehicle_table ORDER BY make")
-    suspend fun getAllVehicles(): List<Vehicle>
-
     @Query("SELECT * FROM vehicle_table WHERE vin = :vin LIMIT 1")
     suspend fun getVehicleFromDatabaseByVin(vin: String): Vehicle
 
-    @Upsert
-    suspend fun upsertVehicle(vehicle: Vehicle)
+    @Transaction
+    @Query("SELECT * FROM vehicle_table ORDER BY year DESC")
+    fun getVehiclesWithLogs(): List<VehicleWithLogs>
+
+    @Update
+    suspend fun updateVehicle(vehicle: Vehicle)
 }

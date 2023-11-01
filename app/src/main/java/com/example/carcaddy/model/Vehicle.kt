@@ -1,27 +1,36 @@
 package com.example.carcaddy.model
 
 import androidx.room.Entity
+import androidx.room.Junction
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity("vehicle_table")
+@Entity(tableName = "vehicle_table")
 data class Vehicle(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     @SerialName("VIN")
     val vin: String,
     @SerialName("ModelYear")
-    val year: String?,
+    val year: String? = null,
     @SerialName("Make")
-    val make: String?,
+    val make: String? = null,
     @SerialName("Model")
-    val model: String?,
-    val mileage: String?,
-    val image: String?,
-    val insuranceImage: String?,
-    val registrationImage: String?,
-
+    val model: String? = null,
+    val mileage: String? = null,
+    val image: String? = null,
+    val insuranceImage: String? = null,
+    val registrationImage: String? = null,
     // ux information
-    val name: String?,
+    val name: String? = null,
+)
+
+
+// Fetching Vehicle From API and converting Results object to a Vehicle Object
+@Serializable
+data class VehicleResponse(
+    @SerialName("Results")
+    val results: List<Vehicle>
 )

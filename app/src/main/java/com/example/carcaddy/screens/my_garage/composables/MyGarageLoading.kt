@@ -1,4 +1,4 @@
-package com.example.carcaddy.screens.vehicle_details.composables
+package com.example.carcaddy.screens.my_garage.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun VehicleDetailLoading(
+fun MyGarageLoading(
+    name: String,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -22,7 +23,7 @@ fun VehicleDetailLoading(
             .fillMaxWidth()
             .height(160.dp)
     ) {
-        Text(text = "Loading Information")
+        Text(text = "Loading $name Information")
         CircularProgressIndicator()
     }
 }
