@@ -41,8 +41,8 @@ fun TabBarScreen(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    
-    val screens = listOf("Home", "Maintenance", "Map")
+
+    val screens = listOf("Home", "Logs", "Map")
 
     var selectedItem by rememberSaveable {
         mutableStateOf(screens.first())
@@ -106,7 +106,7 @@ fun TabBarScreen(
 fun getIconForScreen(screen: String): ImageVector {
     return when (screen) {
         "Home" -> Icons.Filled.DirectionsCar
-        "Maintenance" -> Icons.Filled.LibraryBooks
+        "Logs" -> Icons.Filled.LibraryBooks
         "Map" -> Icons.Filled.Map
         else -> Icons.Filled.Warning
     }
@@ -116,7 +116,7 @@ fun getIconForScreen(screen: String): ImageVector {
 fun getScreenForEachTab(screen: String, navController: NavController) {
     when (screen) {
         "Home" -> VehicleDetailsScreen(navController)
-//        "Maintenance" -> MaintenanceScreen()
+//        "Logs" -> MaintenanceScreen()
 //        "Map" -> MapScreen()
         else -> Text(text = "Selected Screen: $screen")
     }
