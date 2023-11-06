@@ -60,7 +60,7 @@ fun MyGarageScreen(
             )
         }
     ) { innerPadding ->
-        if (vehicle != null && vehicle.isNotEmpty()) {
+        if ((vehicle != null) && vehicle.isNotEmpty()) {
             MyGarageSuccess(
                 vehicles = vehicle,
                 innerPadding = innerPadding,
@@ -72,20 +72,9 @@ fun MyGarageScreen(
             println("Successfully loaded vehicles")
         } else if (errorMessage != null) {
             MyGarageError(message = errorMessage)
-            println("Error loading vehicles")
+            println("Error loading vehicles: $errorMessage")
         } else {
             MyGarageEmpty() // Display a component for an empty garage
         }
     }
 }
-
-//@Composable
-//fun navigateToFetchVinScreen(navController: NavController) {
-//    navController.navigate(Directions.FetchVin.path)
-//}
-//
-//@Composable
-//fun navigateToTabBarScreen(navController: NavController, vin: String) {
-//    val route = "${Directions.TabBar.path}/$vin"
-//    navController.navigate(route)
-//}

@@ -1,4 +1,4 @@
-package com.example.carcaddy.screens.my_garage.composables
+package com.example.carcaddy.screens.maintenance.composables
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,11 +8,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun MyGarageEmpty() {
+fun MaintenanceEmpty() {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(text = "You have not added any vehicles to your garage!")
+        Text(text = "You have not added any logs for this vehicle!")
     }
 }

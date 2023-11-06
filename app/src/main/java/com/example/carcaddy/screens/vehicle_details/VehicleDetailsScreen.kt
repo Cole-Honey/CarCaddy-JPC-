@@ -91,8 +91,8 @@ fun VehicleDetailsScreen(
                         viewModel.getVehicleById(vehicle.vin)
                     },
                     isSheetOpen = isSheetOpen,
-                    onCloseSheet = { isSheetOpen = false })
-
+                    onCloseSheet = { isSheetOpen = false }
+                )
             }
 
             is Response.Error -> {

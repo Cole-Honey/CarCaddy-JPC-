@@ -12,7 +12,7 @@ import com.example.carcaddy.model.Vehicle
         Vehicle::class,
         MaintenanceLog::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class VehicleDatabase : RoomDatabase() {

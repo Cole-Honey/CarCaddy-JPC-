@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.carcaddy.screens.maintenance.MaintenanceScreen
 import com.example.carcaddy.screens.tab_bar.composables.BottomNavigationItem
 import com.example.carcaddy.screens.vehicle_details.VehicleDetailsScreen
 
@@ -116,7 +117,7 @@ fun getIconForScreen(screen: String): ImageVector {
 fun getScreenForEachTab(screen: String, navController: NavController) {
     when (screen) {
         "Home" -> VehicleDetailsScreen(navController)
-//        "Logs" -> MaintenanceScreen()
+//        "Logs" -> MaintenanceScreen(navController)
 //        "Map" -> MapScreen()
         else -> Text(text = "Selected Screen: $screen")
     }
