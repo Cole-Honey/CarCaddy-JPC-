@@ -64,7 +64,7 @@ fun MaintenanceScreen(
             )
         }
     ) { innerPadding ->
-        if (logs != null && logs.isNotEmpty()) {
+        if ((logs != null) && logs.isNotEmpty()) {
             MaintenanceSuccess(
                 logs = logs,
                 innerPadding = innerPadding,
@@ -73,7 +73,7 @@ fun MaintenanceScreen(
                 }
             )
 
-            // TODO Open up a bottom shee to add logs
+            // TODO Open up a bottom sheet to add logs
 
         } else if (errorMessage != null) {
             MaintenanceError(message = errorMessage)

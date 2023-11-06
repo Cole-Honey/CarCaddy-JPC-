@@ -16,8 +16,8 @@ import com.example.carcaddy.screens.my_garage.composables.MyGarageEmpty
 import com.example.carcaddy.screens.my_garage.composables.MyGarageError
 import com.example.carcaddy.screens.my_garage.composables.MyGarageSuccess
 import com.example.carcaddy.screens.my_garage.composables.MyGarageTopBar
-import com.example.carcaddy.utils.Response
 import com.example.carcaddy.screens.navigation.Directions
+import com.example.carcaddy.utils.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,8 +65,24 @@ fun MyGarageScreen(
                 vehicles = vehicle,
                 innerPadding = innerPadding,
                 onItemClick = { selectedVehicle ->
-                    navController.navigate(Directions.TabBar.path + "/${selectedVehicle.vehicle.vin}")
-                    Log.d("Navigation", "The Passed VIN Was: ${selectedVehicle.vehicle.vin}")
+                    val vin = selectedVehicle.vehicle.vin
+                    val logId = selectedVehicle.logs
+                    val navList = if (logId.isEmpty()) {
+                        null
+                    } else {
+                        ArrayList(logId)
+                    }
+
+                    navController.navigate(
+                        Directions.TabBar.path + "/$vin${
+                            if (navList != null) {
+                                "/" + navList.toString()
+                            } else {
+                                ""
+                            }
+                        }"
+                    )
+                    Log.d("Navigation", "The Passed VIN Was: $vin")
                 }
             )
             println("Successfully loaded vehicles")

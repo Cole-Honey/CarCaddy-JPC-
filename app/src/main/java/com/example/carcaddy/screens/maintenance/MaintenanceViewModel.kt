@@ -20,25 +20,24 @@ class MaintenanceViewModel @Inject constructor(
 ) : ViewModel() {
 
     var passedLogs: List<Long> =
-        savedStateHandle.get<List<Long>>("logId")
-            ?: throw IllegalArgumentException(
-                "Expected Logs in Navigation, got Nothing :: MaintenanceViewModel"
-            )
+        savedStateHandle.get<ArrayList<Long>?>("logId")?.toList()
+            ?: emptyList()
+//            throw IllegalArgumentException("Expected Logs in Navigation, got Nothing :: MaintenanceViewModel")
 
     var _logs = MutableStateFlow<Response<List<MaintenanceLog>>>(Response.Loading())
     var logs = _logs.asStateFlow()
 
     init {
-        passedLogs
+        getAllLogs(passedLogs)
     }
 
-//    fun getAllLogs(logs: List<String>) {
-//        viewModelScope.launch {
-//            repository.getAllLogs(logs)
-//                .collect { response ->
-//                    _logs.value = response
-//                    Log.d("ViewModel", "Logs data retrieved")
-//                }
-//        }
-//    }
+    fun getAllLogs(logs: List<Long>) {
+        viewModelScope.launch {
+            repository.getAllLogs(logs)
+                .collect { response ->
+                    _logs.value = response
+                    Log.d("ViewModel", "Logs data retrieved")
+                }
+        }
+    }
 }

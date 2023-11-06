@@ -1,6 +1,7 @@
 package com.example.carcaddy.repository
 
 import com.example.carcaddy.database.VehicleDatabase
+import com.example.carcaddy.model.MaintenanceLog
 import com.example.carcaddy.model.Vehicle
 import com.example.carcaddy.model.VehicleWithLogs
 import com.example.carcaddy.network.VehicleService
@@ -19,7 +20,7 @@ class VehicleRepository @Inject constructor(
 
     private var dispatcher = Dispatchers.IO
 
-    fun fetchVehicleByVin(vin: String): Flow<Response<Vehicle>> = flow {
+    suspend fun fetchVehicleByVin(vin: String): Flow<Response<Vehicle>> = flow {
         emit(Response.Loading())
 
         try {
@@ -34,7 +35,6 @@ class VehicleRepository @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-
     suspend fun getVehicleFromDatabaseByVin(vin: String): Flow<Response<Vehicle>> = flow {
         emit(Response.Loading())
 
@@ -46,7 +46,7 @@ class VehicleRepository @Inject constructor(
 
     }.flowOn(dispatcher)
 
-    fun getVehicleWithLogs(): Flow<Response<List<VehicleWithLogs>>> = flow {
+    suspend fun getVehicleWithLogs(): Flow<Response<List<VehicleWithLogs>>> = flow {
         emit(Response.Loading())
 
         try {
@@ -55,6 +55,18 @@ class VehicleRepository @Inject constructor(
             emit(Response.Success(allVehicles))
         } catch (e: Exception) {
             emit(Response.Error(e.message))
+        }
+    }.flowOn(dispatcher)
+
+    suspend fun getAllLogs(logs: List<Long>): Flow<Response<List<MaintenanceLog>>> = flow {
+        emit(Response.Loading())
+        if (logs.isEmpty()) {
+            emit(Response.Success(emptyList()))
+            return@flow
+        }
+        database.vehicleDao().getAllLogs(logs).let {
+            emit(Response.Success(it))
+            return@flow
         }
     }.flowOn(dispatcher)
 

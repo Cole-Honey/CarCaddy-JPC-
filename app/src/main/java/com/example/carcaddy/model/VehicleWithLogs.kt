@@ -7,7 +7,7 @@ data class VehicleWithLogs(
     @Embedded val vehicle: Vehicle,
     @Relation(
         parentColumn = "vin",
-        entityColumn = "logId"
+        entityColumn = "vin"
     )
     val logs: List<MaintenanceLog>
 )

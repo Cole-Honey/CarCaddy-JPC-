@@ -39,6 +39,7 @@ import com.example.carcaddy.screens.vehicle_details.VehicleDetailsScreen
 @Composable
 fun TabBarScreen(
     vin: String,
+    logId: Long,
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
@@ -117,7 +118,7 @@ fun getIconForScreen(screen: String): ImageVector {
 fun getScreenForEachTab(screen: String, navController: NavController) {
     when (screen) {
         "Home" -> VehicleDetailsScreen(navController)
-//        "Logs" -> MaintenanceScreen(navController)
+        "Logs" -> MaintenanceScreen(navController)
 //        "Map" -> MapScreen()
         else -> Text(text = "Selected Screen: $screen")
     }

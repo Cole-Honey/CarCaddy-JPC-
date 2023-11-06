@@ -64,12 +64,17 @@ fun SetUpNavGraph(
         }
 
         composable(
-            route = Directions.TabBar.path + "/{vin}",
-            arguments = listOf(navArgument("vin") { type = NavType.StringType })
+            route = Directions.TabBar.path + "/{vin}" + "?{logId}",
+            arguments = listOf(
+                navArgument(name = "vin") { type = NavType.StringType },
+                navArgument(name = "logId") { type = NavType.LongArrayType; nullable = true }
+                )
         ) {
             TabBarScreen(
                 vin = it.arguments?.getString("vin")
                     ?: throw Exception("Expected VIN but didn't get it"),
+                logId = it.arguments?.getLong("logId")
+                    ?: throw Exception("Expected logId but didn't get it"),
                 navController = navController
             )
         }
