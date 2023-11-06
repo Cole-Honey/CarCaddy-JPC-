@@ -24,8 +24,9 @@ class VehicleRepository @Inject constructor(
 
         try {
             val fetchedVehicle = networkingService.getVehicleInfo(vin)
-            database.vehicleDao().updateVehicle(fetchedVehicle)
+            database.vehicleDao().insertVehicle(fetchedVehicle)
             println("Vehicle Fetched Successfully in repository")
+            println("Vehicle: $fetchedVehicle")
 
             emit(Response.Success(fetchedVehicle))
         } catch (e: Exception) {

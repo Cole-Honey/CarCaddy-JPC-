@@ -1,6 +1,7 @@
 package com.example.carcaddy.database
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
@@ -16,6 +17,9 @@ interface VehicleDao {
     @Transaction
     @Query("SELECT * FROM vehicle_table ORDER BY year DESC")
     fun getVehiclesWithLogs(): List<VehicleWithLogs>
+
+    @Insert
+    fun insertVehicle(vehicle: Vehicle)
 
     @Update
     suspend fun updateVehicle(vehicle: Vehicle)
