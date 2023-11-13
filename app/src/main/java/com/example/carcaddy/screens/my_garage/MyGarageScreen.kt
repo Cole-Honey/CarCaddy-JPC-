@@ -18,6 +18,7 @@ import com.example.carcaddy.screens.my_garage.composables.MyGarageSuccess
 import com.example.carcaddy.screens.my_garage.composables.MyGarageTopBar
 import com.example.carcaddy.screens.navigation.Directions
 import com.example.carcaddy.utils.Response
+import com.google.gson.Gson
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,17 +67,18 @@ fun MyGarageScreen(
                 innerPadding = innerPadding,
                 onItemClick = { selectedVehicle ->
                     val vin = selectedVehicle.vehicle.vin
-                    val logId = selectedVehicle.logs
-                    val navList = if (logId.isEmpty()) {
+                    val logIds = Gson().toJson(selectedVehicle.logs.map { it.logId })
+                    Log.d("Navigation", "logIds: $logIds")
+                    val navList = if (logIds.isEmpty()) {
                         null
                     } else {
-                        ArrayList(logId)
+                        logIds
                     }
 
                     navController.navigate(
                         Directions.TabBar.path + "/$vin${
                             if (navList != null) {
-                                "/" + navList.toString()
+                                "/$navList"
                             } else {
                                 ""
                             }

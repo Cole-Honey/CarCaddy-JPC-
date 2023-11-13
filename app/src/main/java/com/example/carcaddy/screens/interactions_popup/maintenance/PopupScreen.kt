@@ -1,4 +1,4 @@
-package com.example.carcaddy.screens.interactions_popup
+package com.example.carcaddy.screens.interactions_popup.maintenance
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,20 +12,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.carcaddy.model.Vehicle
-import com.example.carcaddy.screens.interactions_popup.composables.BottomSheetInteractions
+import com.example.carcaddy.model.MaintenanceLog
+import com.example.carcaddy.screens.interactions_popup.garage.composables.BottomSheetInteractions
+import com.example.carcaddy.screens.interactions_popup.maintenance.composables.BottomSheet
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InteractionsPopupScreen(
-    vehicle: Vehicle,
-    onSave: (Vehicle) -> Unit,
+fun PopupScreen(
+    onSave: (MaintenanceLog) -> Unit,
     isSheetOpen: Boolean,
     onCloseSheet: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
-    val sheetState = rememberModalBottomSheetState()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     if (isSheetOpen) {
         ModalBottomSheet(
@@ -38,15 +38,12 @@ fun InteractionsPopupScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
+                    .padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                BottomSheetInteractions(
-                    vehicle = vehicle,
-                    onSave = { vehicle ->
-                        onSave(vehicle)
-                    }
+                BottomSheet(
+                    onSave = onSave
                 )
             }
         }

@@ -20,7 +20,9 @@ import com.example.carcaddy.screens.navigation.Directions
 import com.example.carcaddy.screens.splash_screen.SplashScreen
 import com.example.carcaddy.screens.tab_bar.TabBarScreen
 import com.example.carcaddy.ui.theme.CarCaddyTheme
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
+import com.google.gson.Gson
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -35,7 +37,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     SetUpNavGraph(navController = navController)
-//                    DestinationsNavHost(navGraph = NavGraphs.root)
                 }
             }
         }
@@ -64,17 +65,19 @@ fun SetUpNavGraph(
         }
 
         composable(
-            route = Directions.TabBar.path + "/{vin}" + "?{logId}",
+            route = Directions.TabBar.path + "/{vin}" + "/{logIds}",
             arguments = listOf(
                 navArgument(name = "vin") { type = NavType.StringType },
-                navArgument(name = "logId") { type = NavType.LongArrayType; nullable = true }
+                navArgument(name = "logIds") { type = NavType.StringType }
                 )
         ) {
+
             TabBarScreen(
                 vin = it.arguments?.getString("vin")
                     ?: throw Exception("Expected VIN but didn't get it"),
-                logId = it.arguments?.getLong("logId")
-                    ?: throw Exception("Expected logId but didn't get it"),
+                logIds = it.arguments?.getString("logIds")?.let {
+                    Gson().fromJson(it, object : TypeToken<List<Long>>() {}.type)
+                } ?: emptyList(),
                 navController = navController
             )
         }

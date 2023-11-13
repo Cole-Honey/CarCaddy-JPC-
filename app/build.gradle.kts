@@ -100,6 +100,9 @@ dependencies {
     // Maps
     implementation(libs.maps)
 
+    // Date Picker
+    implementation(libs.datetime)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

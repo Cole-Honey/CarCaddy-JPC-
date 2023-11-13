@@ -14,15 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.carcaddy.screens.interactions_popup.InteractionsPopupScreen
-import com.example.carcaddy.screens.my_garage.MyGarageViewModel
+import com.example.carcaddy.screens.interactions_popup.garage.InteractionsPopupScreen
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailError
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailLoading
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailSuccess
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailsTopBar
 import com.example.carcaddy.utils.Response
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

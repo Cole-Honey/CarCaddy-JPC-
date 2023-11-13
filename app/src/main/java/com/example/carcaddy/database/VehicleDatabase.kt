@@ -4,17 +4,20 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.carcaddy.model.MaintenanceLog
 import com.example.carcaddy.model.Vehicle
+import com.example.carcaddy.utils.Converters
 
 @Database(
     entities = [
         Vehicle::class,
         MaintenanceLog::class
     ],
-    version = 5,
+    version = 9,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class VehicleDatabase : RoomDatabase() {
     abstract fun vehicleDao(): VehicleDao
 

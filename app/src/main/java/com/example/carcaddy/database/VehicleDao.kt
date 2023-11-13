@@ -29,7 +29,9 @@ interface VehicleDao {
 
     //* Log Section *//
 
-    @Query("SELECT * FROM maintenance_table WHERE logId = :logId")
-    suspend fun getAllLogs(logId: List<Long>): List<MaintenanceLog>
+    @Query("SELECT * FROM maintenance_table WHERE logId IN (:logIds)")
+    suspend fun getAllLogs(logIds: List<Long>): List<MaintenanceLog>
 
+    @Insert
+    fun addLog(log: MaintenanceLog)
 }

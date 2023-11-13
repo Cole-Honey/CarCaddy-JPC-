@@ -1,5 +1,6 @@
 package com.example.carcaddy.repository
 
+import android.util.Log
 import com.example.carcaddy.database.VehicleDatabase
 import com.example.carcaddy.model.MaintenanceLog
 import com.example.carcaddy.model.Vehicle
@@ -73,6 +74,19 @@ class VehicleRepository @Inject constructor(
     suspend fun updateVehicle(vehicle: Vehicle) {
         return withContext(dispatcher) {
             return@withContext database.vehicleDao().updateVehicle(vehicle)
+        }
+    }
+
+    suspend fun addLog(log: MaintenanceLog) {
+        return withContext(dispatcher) {
+            try {
+                database.vehicleDao().addLog(log)
+                Log.d("Repository", "Log added successfully: $log")
+            } catch (e: Exception) {
+                Log.e("Repository", "Error adding log: $e")
+                // Propagate the exception if needed
+                throw e
+            }
         }
     }
 }

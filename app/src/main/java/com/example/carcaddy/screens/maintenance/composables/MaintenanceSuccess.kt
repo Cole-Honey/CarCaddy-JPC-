@@ -1,5 +1,6 @@
 package com.example.carcaddy.screens.maintenance.composables
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,18 +28,18 @@ fun MaintenanceSuccess(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
-        logs?.let { logsList ->
-            items(logsList) { log ->
-                Column(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                ) {
-                    MaintenanceListItem(log = log, onItemClick = { onItemClick(log) })
-                }
-                Divider(
-                    color = Color.Black,
-                    thickness = 1.dp
-                )
+        Log.d("Logs", "List of logs: $logs")
+        items(logs) { log ->
+            Column(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            ) {
+                MaintenanceListItem(log = log, onItemClick = { onItemClick(log) })
+                Log.d("Logs", "$log")
             }
+            Divider(
+                color = Color.Black,
+                thickness = 1.dp
+            )
         }
     }
 }

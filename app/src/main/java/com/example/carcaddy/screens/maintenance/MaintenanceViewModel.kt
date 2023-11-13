@@ -7,10 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.carcaddy.model.MaintenanceLog
 import com.example.carcaddy.repository.VehicleRepository
 import com.example.carcaddy.utils.Response
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,16 +22,26 @@ class MaintenanceViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    var passedLogs: List<Long> =
-        savedStateHandle.get<ArrayList<Long>?>("logId")?.toList()
-            ?: emptyList()
-//            throw IllegalArgumentException("Expected Logs in Navigation, got Nothing :: MaintenanceViewModel")
+    val logIdsString: String? = savedStateHandle.get("logIds")
+    val passedLogs: List<Long> = if (!logIdsString.isNullOrBlank()) {
+        Gson().fromJson(logIdsString, object : TypeToken<List<Long>>() {}.type)
+    } else {
+        emptyList()
+    }
+
 
     var _logs = MutableStateFlow<Response<List<MaintenanceLog>>>(Response.Loading())
     var logs = _logs.asStateFlow()
 
-    init {
-        getAllLogs(passedLogs)
+    var selectedLog: MaintenanceLog? = null
+
+//    init {
+//        getAllLogs(passedLogs)
+//        Log.d("Navigation", "Logs Passed: $passedLogs")
+//    }
+
+    fun onLogClicked(log: MaintenanceLog) {
+        selectedLog = log
     }
 
     fun getAllLogs(logs: List<Long>) {
@@ -38,6 +51,24 @@ class MaintenanceViewModel @Inject constructor(
                     _logs.value = response
                     Log.d("ViewModel", "Logs data retrieved")
                 }
+        }
+    }
+
+    // Inside your ViewModel
+    fun addLog(
+        vin: String,
+        log: MaintenanceLog
+    ) {
+        viewModelScope.launch {
+            val newLog = MaintenanceLog(
+                maintenanceType = log.maintenanceType,
+                date = log.date,
+                cost = log.cost,
+                description = log.description,
+                vin = vin
+            )
+            repository.addLog(newLog)
+            Log.d("ViewModel", "Log added: $log")
         }
     }
 }

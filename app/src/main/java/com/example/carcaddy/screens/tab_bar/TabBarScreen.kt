@@ -11,9 +11,6 @@ import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.LibraryBooks
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material.icons.outlined.DirectionsCar
-import androidx.compose.material.icons.outlined.LibraryBooks
-import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -32,14 +29,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.carcaddy.screens.maintenance.MaintenanceScreen
-import com.example.carcaddy.screens.tab_bar.composables.BottomNavigationItem
 import com.example.carcaddy.screens.vehicle_details.VehicleDetailsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TabBarScreen(
     vin: String,
-    logId: Long,
+    logIds: List<Long>,
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
@@ -97,7 +93,8 @@ fun TabBarScreen(
             ) {
                 getScreenForEachTab(
                     screen = selectedItem,
-                    navController = navController
+                    navController = navController,
+                    vin = vin
                 )
             }
         }
@@ -115,10 +112,10 @@ fun getIconForScreen(screen: String): ImageVector {
 }
 
 @Composable
-fun getScreenForEachTab(screen: String, navController: NavController) {
+fun getScreenForEachTab(screen: String, navController: NavController, vin: String) {
     when (screen) {
         "Home" -> VehicleDetailsScreen(navController)
-        "Logs" -> MaintenanceScreen(navController)
+        "Logs" -> MaintenanceScreen(vin, navController)
 //        "Map" -> MapScreen()
         else -> Text(text = "Selected Screen: $screen")
     }

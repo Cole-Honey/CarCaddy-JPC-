@@ -9,12 +9,13 @@ data class MaintenanceLog(
     @PrimaryKey(autoGenerate = true)
     val logId: Long = 0,
     val maintenanceType: MaintenanceType,
-//    val date: Date,
-    val cost: Long,
-    val description: String,
+    val date: Date?,
+    val cost: Double?,
+    val description: String?,
     val vin: String
 ) {
     enum class MaintenanceType {
+        CHOOSE_TYPE,
         MISCELLANEOUS,
         OIL,
         BRAKES,
