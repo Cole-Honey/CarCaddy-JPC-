@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -15,11 +16,14 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.carcaddy.model.MaintenanceLog
 import com.example.carcaddy.model.MaintenanceLog.MaintenanceType
@@ -35,7 +39,7 @@ fun AddLogScreen(
     // State variables
     val selectedDate by remember { mutableStateOf(Date()) }
     var maintenanceType by remember { mutableStateOf(MaintenanceType.CHOOSE_TYPE) }
-    var cost by remember { mutableStateOf(0.0) }
+    var costText by remember { mutableStateOf("0.0") }
     var description by remember { mutableStateOf("") }
     val vin by remember { mutableStateOf("") }
 
@@ -97,16 +101,25 @@ fun AddLogScreen(
 
         // Cost Input
         OutlinedTextField(
-            value = cost.toString(),
-            onValueChange = { cost = it.toDouble() },
-            label = { Text("Cost") }
+            value = costText,
+            onValueChange = {
+                // Update costText based on user input
+                costText = it
+            },
+            label = { Text("Cost") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
         )
 
         // Description Input
         OutlinedTextField(
             value = description,
             onValueChange = { description = it },
-            label = { Text("Description") }
+            label = { Text("Description") },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Text,
+            ),
+            singleLine = false
         )
 
         // Save Button
@@ -117,7 +130,7 @@ fun AddLogScreen(
                     MaintenanceLog(
                         maintenanceType = maintenanceType,
                         date = selectedDate,
-                        cost = cost,
+                        cost = costText.toDoubleOrNull(),
                         description = description,
                         vin = vin
                     )

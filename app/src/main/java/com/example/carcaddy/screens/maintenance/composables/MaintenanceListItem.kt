@@ -32,11 +32,11 @@ fun MaintenanceListItem(
         modifier = modifier.clickable { onItemClick() }
     ) {
         Column(
-            modifier = Modifier.weight(0.8f)
+            modifier = Modifier.weight(0.9f)
         ) {
             Row {
                 Column(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1.45f)
                 ) {
                     Text(
                         text = "Type",

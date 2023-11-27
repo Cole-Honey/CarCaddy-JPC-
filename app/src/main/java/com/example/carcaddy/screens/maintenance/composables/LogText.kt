@@ -12,7 +12,7 @@ fun LogText(
     text?.let {
         Text(
             text = it,
-            fontSize = 22.sp
+            fontSize = 20.sp
         )
     }
 }

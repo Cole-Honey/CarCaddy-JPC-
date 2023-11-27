@@ -29,7 +29,7 @@ interface VehicleDao {
 
     //* Log Section *//
 
-    @Query("SELECT * FROM maintenance_table WHERE logId IN (:logIds)")
+    @Query("SELECT * FROM maintenance_table WHERE logId IN (:logIds) ORDER BY date DESC")
     suspend fun getAllLogs(logIds: List<Long>): List<MaintenanceLog>
 
     @Insert

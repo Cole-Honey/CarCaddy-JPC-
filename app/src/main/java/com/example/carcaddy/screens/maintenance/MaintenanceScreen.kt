@@ -22,6 +22,7 @@ import com.example.carcaddy.screens.maintenance.composables.MaintenanceTopBar
 import com.example.carcaddy.screens.topbar_interactions.maintenance.PopupScreen
 import com.example.carcaddy.screens.topbar_interactions.maintenance_drawer.DrawerScreen
 import com.example.carcaddy.utils.Response
+import kotlinx.coroutines.flow.toList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -86,6 +87,7 @@ fun MaintenanceScreen(
                 PopupScreen(
                     onSave = {
                         viewModel.addLog(vin, it)
+                        viewModel.getAllLogs(viewModel.passedLogs)
                         isSheetOpen = false
                     },
                     isSheetOpen = isSheetOpen,
