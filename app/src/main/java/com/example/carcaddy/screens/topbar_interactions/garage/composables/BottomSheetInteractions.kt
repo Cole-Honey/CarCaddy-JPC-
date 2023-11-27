@@ -1,9 +1,7 @@
-package com.example.carcaddy.screens.interactions_popup.garage.composables
+package com.example.carcaddy.screens.topbar_interactions.garage.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier

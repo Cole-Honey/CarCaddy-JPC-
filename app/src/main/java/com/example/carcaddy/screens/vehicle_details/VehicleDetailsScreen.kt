@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.carcaddy.screens.interactions_popup.garage.InteractionsPopupScreen
+import com.example.carcaddy.screens.topbar_interactions.garage.InteractionsPopupScreen
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailError
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailLoading
 import com.example.carcaddy.screens.vehicle_details.composables.VehicleDetailSuccess

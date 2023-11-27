@@ -38,7 +38,6 @@ class VehicleDetailsViewModel @Inject constructor(
             repository.getVehicleFromDatabaseByVin(vin)
                 .collect { response ->
                     _vehicle.value = response
-                    Log.d("ViewModel", "Vehicle data retrieved: $response")
                 }
         }
     }
@@ -46,7 +45,6 @@ class VehicleDetailsViewModel @Inject constructor(
     fun updateVehicle(vehicle: Vehicle) {
         viewModelScope.launch {
             repository.updateVehicle(vehicle)
-            Log.d("ViewModel", "Vehicle updated: $vehicle")
         }
     }
 }

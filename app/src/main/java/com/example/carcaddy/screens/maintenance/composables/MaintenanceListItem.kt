@@ -1,6 +1,5 @@
 package com.example.carcaddy.screens.maintenance.composables
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,37 +28,51 @@ fun MaintenanceListItem(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.SpaceAround,
         modifier = modifier.clickable { onItemClick() }
     ) {
         Column(
             modifier = Modifier.weight(0.8f)
         ) {
-            Text(
-                text = "Type",
-                fontSize = 15.sp,
-                color = Color.Gray
-            )
-            LogText(log.maintenanceType.name)
+            Row {
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = "Type",
+                        fontSize = 15.sp,
+                        color = Color.Gray
+                    )
+                    LogText(log.maintenanceType.name.lowercase().capitalize(Locale.ROOT))
+                }
 
-            Text(
-                text = "Date",
-                fontSize = 15.sp,
-                color = Color.Gray
-            )
-            LogText(log.date?.let { SimpleDateFormat("MMM dd", Locale.getDefault()).format(it) })
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = "Date",
+                        fontSize = 15.sp,
+                        color = Color.Gray
+                    )
+                    LogText(log.date?.let {
+                        SimpleDateFormat("MMM dd", Locale.getDefault()).format(
+                            it
+                        )
+                    })
+                }
 
-            Text(
-                text = "Cost",
-                fontSize = 15.sp,
-                color = Color.Gray
-            )
-            LogText(log.cost.toString())
-        }
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = "Cost",
+                        fontSize = 15.sp,
+                        color = Color.Gray
+                    )
+                    LogText(log.cost.toString())
+                }
+            }
 
-        Column(
-            modifier = Modifier.weight(0.2f)
-        ) {
             Text(
                 text = "Description",
                 fontSize = 15.sp,

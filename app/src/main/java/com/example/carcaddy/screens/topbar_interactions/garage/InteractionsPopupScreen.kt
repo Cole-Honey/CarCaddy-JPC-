@@ -1,4 +1,4 @@
-package com.example.carcaddy.screens.interactions_popup.maintenance
+package com.example.carcaddy.screens.topbar_interactions.garage
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,14 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.carcaddy.model.MaintenanceLog
-import com.example.carcaddy.screens.interactions_popup.garage.composables.BottomSheetInteractions
-import com.example.carcaddy.screens.interactions_popup.maintenance.composables.BottomSheet
+import com.example.carcaddy.model.Vehicle
+import com.example.carcaddy.screens.topbar_interactions.garage.composables.BottomSheetInteractions
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PopupScreen(
-    onSave: (MaintenanceLog) -> Unit,
+fun InteractionsPopupScreen(
+    vehicle: Vehicle,
+    onSave: (Vehicle) -> Unit,
     isSheetOpen: Boolean,
     onCloseSheet: () -> Unit,
     modifier: Modifier = Modifier
@@ -38,12 +38,15 @@ fun PopupScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 16.dp),
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                BottomSheet(
-                    onSave = onSave
+                BottomSheetInteractions(
+                    vehicle = vehicle,
+                    onSave = { vehicle ->
+                        onSave(vehicle)
+                    }
                 )
             }
         }

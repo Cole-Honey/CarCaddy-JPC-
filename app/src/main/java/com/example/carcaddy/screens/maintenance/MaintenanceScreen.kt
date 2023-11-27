@@ -1,5 +1,6 @@
 package com.example.carcaddy.screens.maintenance
 
+import android.util.Log
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -14,11 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.carcaddy.screens.interactions_popup.maintenance.PopupScreen
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceEmpty
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceLoading
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceSuccess
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceTopBar
+import com.example.carcaddy.screens.topbar_interactions.maintenance.PopupScreen
+import com.example.carcaddy.screens.topbar_interactions.maintenance_drawer.DrawerScreen
 import com.example.carcaddy.utils.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,15 +45,26 @@ fun MaintenanceScreen(
         mutableStateOf(false)
     }
 
+    var isDrawerOpen by rememberSaveable {
+        mutableStateOf(false)
+    }
+
     val openBottomSheet: () -> Unit = {
         isSheetOpen = true
+    }
+
+    val openDrawer: () -> Unit = {
+        Log.d("Drawer", "Drawer is $isDrawerOpen")
+        isDrawerOpen = true
+        Log.d("Drawer", "Drawer is now $isDrawerOpen")
     }
 
     Scaffold(
         topBar = {
             MaintenanceTopBar(
                 scrollBehavior = scrollBehavior,
-                openScreen = { openBottomSheet() }
+                openScreen = { openBottomSheet() },
+                openDrawer = { openDrawer() }
             )
         }
     ) { innerPadding ->
@@ -78,6 +91,10 @@ fun MaintenanceScreen(
                     isSheetOpen = isSheetOpen,
                     onCloseSheet = { isSheetOpen = false }
                 )
+
+                if (isDrawerOpen) {
+                    DrawerScreen()
+                }
             }
 
             is Response.Error -> {

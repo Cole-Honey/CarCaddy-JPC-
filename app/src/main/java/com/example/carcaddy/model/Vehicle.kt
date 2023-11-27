@@ -1,9 +1,11 @@
 package com.example.carcaddy.model
 
+import android.net.Uri
 import androidx.room.Entity
 import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -20,9 +22,12 @@ data class Vehicle(
     @SerialName("Model")
     val model: String? = null,
     val mileage: String? = null,
-    val image: String? = null,
-    val insuranceImage: String? = null,
-    val registrationImage: String? = null,
+    @Contextual
+    val image: Uri? = null,
+    @Contextual
+    val insuranceImage: Uri? = null,
+    @Contextual
+    val registrationImage: Uri? = null,
     // ux information
     val name: String? = null,
 )

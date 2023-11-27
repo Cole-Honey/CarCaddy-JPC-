@@ -1,8 +1,7 @@
 package com.example.carcaddy.utils
 
+import android.net.Uri
 import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.util.Date
 
 class Converters {
@@ -17,14 +16,13 @@ class Converters {
         return date?.time?.toLong()
     }
 
-//    @TypeConverter
-//    fun fromLongList(value: List<Long>): String {
-//        return Gson().toJson(value)
-//    }
-//
-//    @TypeConverter
-//    fun toLongList(value: String): List<Long> {
-//        val listType = object : TypeToken<List<Long>>() {}.type
-//        return Gson().fromJson(value, listType)
-//    }
+    @TypeConverter
+    fun fromUri(uri: Uri?): String? {
+        return uri?.toString()
+    }
+
+    @TypeConverter
+    fun toUri(uriString: String?): Uri? {
+        return uriString?.let { Uri.parse(it) }
+    }
 }
