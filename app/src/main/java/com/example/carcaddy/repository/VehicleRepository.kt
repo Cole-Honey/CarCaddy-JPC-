@@ -89,4 +89,10 @@ class VehicleRepository @Inject constructor(
             }
         }
     }
+
+    suspend fun deleteLog(log: MaintenanceLog) {
+        return withContext(dispatcher) {
+            return@withContext database.vehicleDao().deleteLog(log)
+        }
+    }
 }
