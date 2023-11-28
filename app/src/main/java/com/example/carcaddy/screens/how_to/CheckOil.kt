@@ -16,39 +16,41 @@ fun CheckOil(
     modifier: Modifier = Modifier
 ) {
     val steps = listOf(
-        Step(id = 1, number = "Step 1", description = "Park the car on level ground."),
-        Step(id = 2, number = "Step 2", description = "Locate the dipstick and remove it."),
-        Step(id = 3, number = "Step 3", description = "Wipe the dipstick clean"),
+        Step(
+            id = 1, number = "Step 1", description =
+            "Park the car on level ground."
+        ),
+        Step(
+            id = 2, number = "Step 2", description =
+            "Locate the dipstick and remove it."
+        ),
+        Step(
+            id = 3, number = "Step 3", description =
+            "Wipe the dipstick clean"
+        ),
         Step(
             id = 4, number = "Step 4", description =
-            "Reinsert the dipstick fully\n" +
-                    "back into the oil reservoir."
+            "Reinsert the dipstick fully back into the oil reservoir."
         ),
         Step(
             id = 5, number = "Step 5", description =
-            "Remove the dipstick again and\n" +
-                    "check the oil levelagainst the\n" +
-                    "minimum and maximum markings."
+            "Remove the dipstick again and check the oil levelagainst the minimum and maximum markings."
         ),
-        Step(id = 6, number = "Step 6", description = "Check the oil color and consistency."),
+        Step(
+            id = 6, number = "Step 6", description =
+            "Check the oil color and consistency."
+        ),
         Step(
             id = 7, number = "Step 7", description =
-            "If the oil level is low, top it off.\n" +
-                    "If the oil is dirty, it may be time\n" +
-                    "for an oil change."
+            "If the oil level is low, top it off. If the oil is dirty, it may be time for an oil change."
         ),
         Step(
             id = 8, number = "Step 8", description =
-            "Reinsert the dipstick back\n" +
-                    "into the oil reservoir and\n" +
-                    "close the hood."
+            "Reinsert the dipstick back into the oil reservoir and close the hood."
         ),
         Step(
             id = 9, number = "Disclaimer", description =
-            "Remember, these steps are a general\n" +
-                    "guide. We recommend consulting your\n" +
-                    "vehicle's specific manual or manufacturer\n" +
-                    "for precise instructions."
+            "Remember, these steps are a general guide. We recommend consulting your vehicle's specific manual or manufacturer for precise instructions."
         ),
     )
 

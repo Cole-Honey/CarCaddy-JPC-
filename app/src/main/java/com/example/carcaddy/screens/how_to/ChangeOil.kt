@@ -18,41 +18,31 @@ fun ChangeOil(
     val steps = listOf(
         Step(
             id = 1, number = "Step 1", description =
-            "You'll need oil, a new oil filter,\n" +
-                    "a drain pan, a wrench, and a funnel."
+            "You'll need oil, a new oil filter, a drain pan, a wrench, and a funnel."
         ),
         Step(
             id = 2, number = "Step 2", description =
-            "Locate the oil drain plug, remove it,\n" +
-                    "and let the oil drain out."
+            "Locate the oil drain plug, remove it, and let the oil drain out."
         ),
         Step(
             id = 3, number = "Step 3", description =
-            "Remove the old oil filter and\n" +
-                    "replace it with a new one."
+            "Remove the old oil filter and replace it with a new one."
         ),
         Step(
             id = 4, number = "Step 4", description =
-            "Use a funnel to refill the oil\n" +
-                    "reservoir with the recommended\n" +
-                    "amount of new oil."
+            "Use a funnel to refill the oil reservoir with the recommended amount of new oil."
         ),
         Step(
             id = 5, number = "Step 5", description =
-            "Use the dipstick to check the oil\n" +
-                    "level and ensure it's at the correct level."
+            "Use the dipstick to check the oil level and ensure it's at the correct level."
         ),
         Step(
             id = 6, number = "Step 6", description =
-            "Take the old oil and filter to a recycling center\n" +
-                    "or auto parts store that accepts used oil."
+            "Take the old oil and filter to a recycling center or auto parts store that accepts used oil."
         ),
         Step(
             id = 7, number = "Disclaimer", description =
-            "Remember, these steps are a general\n" +
-                    "guide. We recommend consulting your\n" +
-                    "vehicle's specific manual or manufacturer\n" +
-                    "for precise instructions."
+            "Remember, these steps are a general guide. We recommend consulting your vehicle's specific manual or manufacturer for precise instructions."
         ),
     )
 
