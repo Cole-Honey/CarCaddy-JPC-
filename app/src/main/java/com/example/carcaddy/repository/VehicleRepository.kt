@@ -95,4 +95,16 @@ class VehicleRepository @Inject constructor(
             return@withContext database.vehicleDao().deleteLog(log)
         }
     }
+
+    suspend fun deleteVehicle(vehicle: Vehicle) {
+        return withContext(dispatcher) {
+            return@withContext database.vehicleDao().deleteVehicle(vehicle)
+        }
+    }
+
+    suspend fun deleteLogsForVehicle(vin: String) {
+        return withContext(dispatcher) {
+            return@withContext database.vehicleDao().deleteLogsForVehicle(vin)
+        }
+    }
 }

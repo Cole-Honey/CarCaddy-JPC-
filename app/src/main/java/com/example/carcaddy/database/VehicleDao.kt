@@ -28,6 +28,9 @@ interface VehicleDao {
     @Update
     suspend fun updateVehicle(vehicle: Vehicle)
 
+    @Delete
+    suspend fun deleteVehicle(vehicle: Vehicle)
+
     //* Log Section *//
 
     @Query("SELECT * FROM maintenance_table WHERE logId IN (:logIds) ORDER BY date DESC")
@@ -38,4 +41,9 @@ interface VehicleDao {
 
     @Delete
     suspend fun deleteLog(log: MaintenanceLog)
+
+    //* Combined Section *//
+
+    @Query("DELETE FROM maintenance_table WHERE vin = :vin")
+    suspend fun deleteLogsForVehicle(vin: String)
 }

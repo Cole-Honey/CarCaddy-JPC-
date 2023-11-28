@@ -35,11 +35,6 @@ class MaintenanceViewModel @Inject constructor(
 
     var selectedLog: MaintenanceLog? = null
 
-//    init {
-//        getAllLogs(passedLogs)
-//        Log.d("Navigation", "Logs Passed: $passedLogs")
-//    }
-
     fun onLogClicked(log: MaintenanceLog) {
         selectedLog = log
     }
@@ -69,6 +64,12 @@ class MaintenanceViewModel @Inject constructor(
             )
             repository.addLog(newLog)
             Log.d("ViewModel", "Log added: $log")
+        }
+    }
+
+    fun deleteLog(log: MaintenanceLog) {
+        viewModelScope.launch {
+            repository.deleteLog(log)
         }
     }
 }

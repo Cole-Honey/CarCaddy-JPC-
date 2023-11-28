@@ -81,7 +81,11 @@ fun MaintenanceScreen(
                     innerPadding = innerPadding,
                     onItemClick = { log ->
                         viewModel.onLogClicked(log)
-                    }
+                    },
+                    onItemDelete = { log ->
+                        viewModel.deleteLog(log)
+                        viewModel.getAllLogs(viewModel.passedLogs)
+                    },
                 )
 
                 PopupScreen(

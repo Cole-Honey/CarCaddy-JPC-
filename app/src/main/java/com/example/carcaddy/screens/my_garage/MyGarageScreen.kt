@@ -85,7 +85,11 @@ fun MyGarageScreen(
                         }"
                     )
                     Log.d("Navigation", "The Passed VIN Was: $vin")
-                }
+                },
+                onItemDelete = { selectedVehicle ->
+                    viewModel.deleteVehicle(selectedVehicle.vehicle)
+                    viewModel.getVehicles()
+                },
             )
             println("Successfully loaded vehicles")
         } else if (errorMessage != null) {

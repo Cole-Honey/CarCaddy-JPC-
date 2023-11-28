@@ -11,6 +11,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +25,7 @@ import java.util.Locale
 fun MaintenanceListItem(
     log: MaintenanceLog,
     onItemClick: () -> Unit,
+    onItemDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -80,7 +82,6 @@ fun MaintenanceListItem(
             )
             LogText(log.description)
         }
-
         Icon(
             modifier = Modifier.size(24.dp),
             imageVector = Icons.Filled.ArrowForwardIos,

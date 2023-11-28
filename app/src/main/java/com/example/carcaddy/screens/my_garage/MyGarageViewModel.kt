@@ -28,4 +28,11 @@ class MyGarageViewModel @Inject constructor(
             }
         }
     }
+
+    fun deleteVehicle(vehicle: Vehicle) {
+        viewModelScope.launch {
+            repository.deleteLogsForVehicle(vehicle.vin)
+            repository.deleteVehicle(vehicle)
+        }
+    }
 }
