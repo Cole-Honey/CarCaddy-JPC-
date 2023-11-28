@@ -1,28 +1,29 @@
 package com.example.carcaddy.screens.maintenance
 
-import android.util.Log
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
+import androidx.compose.material.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.example.carcaddy.screens.topbar_interactions.maintenance_drawer.DrawerContent
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceEmpty
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceLoading
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceSuccess
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceTopBar
 import com.example.carcaddy.screens.topbar_interactions.maintenance.PopupScreen
-import com.example.carcaddy.screens.topbar_interactions.maintenance_drawer.DrawerScreen
 import com.example.carcaddy.utils.Response
-import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,19 +56,34 @@ fun MaintenanceScreen(
     }
 
     val openDrawer: () -> Unit = {
-        Log.d("Drawer", "Drawer is $isDrawerOpen")
         isDrawerOpen = true
-        Log.d("Drawer", "Drawer is now $isDrawerOpen")
     }
 
+    val scaffoldState = rememberScaffoldState()
+
+    val scope = rememberCoroutineScope()
+
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             MaintenanceTopBar(
                 scrollBehavior = scrollBehavior,
                 openScreen = { openBottomSheet() },
-                openDrawer = { openDrawer() }
+                openDrawer = {
+                    scope.launch {
+                        scaffoldState.drawerState.open()
+                    }
+                }
             )
-        }
+        },
+        drawerContent = {
+            DrawerContent(
+                navController = navController,
+                onItemClick = {
+
+                }
+            )
+        },
     ) { innerPadding ->
 
         when (val state = logsState) {
@@ -97,10 +113,6 @@ fun MaintenanceScreen(
                     isSheetOpen = isSheetOpen,
                     onCloseSheet = { isSheetOpen = false }
                 )
-
-                if (isDrawerOpen) {
-                    DrawerScreen()
-                }
             }
 
             is Response.Error -> {

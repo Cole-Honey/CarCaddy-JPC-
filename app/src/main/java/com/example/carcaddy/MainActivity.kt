@@ -15,6 +15,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.carcaddy.screens.fetch_vin.FetchVinScreen
+import com.example.carcaddy.screens.how_to.ChangeBattery
+import com.example.carcaddy.screens.how_to.ChangeBrakes
+import com.example.carcaddy.screens.how_to.ChangeOil
+import com.example.carcaddy.screens.how_to.ChangeTires
+import com.example.carcaddy.screens.how_to.ChangeTransmissionFluid
+import com.example.carcaddy.screens.how_to.CheckBattery
+import com.example.carcaddy.screens.how_to.CheckBrakes
+import com.example.carcaddy.screens.how_to.CheckOil
+import com.example.carcaddy.screens.how_to.CheckTires
+import com.example.carcaddy.screens.how_to.CheckTransmissionFluid
 import com.example.carcaddy.screens.my_garage.MyGarageScreen
 import com.example.carcaddy.screens.navigation.Directions
 import com.example.carcaddy.screens.splash_screen.SplashScreen
@@ -80,6 +90,46 @@ fun SetUpNavGraph(
                 } ?: emptyList(),
                 navController = navController
             )
+        }
+
+        composable(Directions.CheckOil.path) {
+            CheckOil()
+        }
+
+        composable(Directions.ChangeOil.path) {
+            ChangeOil()
+        }
+
+        composable(Directions.CheckBrakes.path) {
+            CheckBrakes()
+        }
+
+        composable(Directions.ChangeBrakes.path) {
+            ChangeBrakes()
+        }
+
+        composable(Directions.CheckTires.path) {
+            CheckTires()
+        }
+
+        composable(Directions.ChangeTires.path) {
+            ChangeTires()
+        }
+
+        composable(Directions.CheckTransmissionFluid.path) {
+            CheckTransmissionFluid()
+        }
+
+        composable(Directions.ChangeTransmissionFluid.path) {
+            ChangeTransmissionFluid()
+        }
+
+        composable(Directions.CheckBattery.path) {
+            CheckBattery()
+        }
+
+        composable(Directions.ChangeBattery.path) {
+            ChangeBattery()
         }
     }
 }
