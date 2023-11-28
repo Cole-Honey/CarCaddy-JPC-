@@ -33,6 +33,9 @@ maps = "18.1.0"
 # Date Picker
 dialogs = "0.9.0"
 
+# Youtube Player
+youtube = "0.28"
+
 # Testing
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
@@ -94,6 +97,9 @@ maps = { group = "com.google.android.gms", name = "play-services-maps", version.
 
 # Date Picker
 datetime = { group = "io.github.vanpra.compose-material-dialogs", name = "datetime", version.ref = "dialogs" }
+
+# Youtube Player
+youtube = { group = "com.pierfrancescosoffritti.androidyoutubeplayer", name = "chromecast-sender", version.ref = "youtube" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

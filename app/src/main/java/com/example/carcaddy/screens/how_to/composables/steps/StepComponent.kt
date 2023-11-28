@@ -1,4 +1,4 @@
-package com.example.carcaddy.screens.how_to.composables
+package com.example.carcaddy.screens.how_to.composables.steps
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

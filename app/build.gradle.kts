@@ -103,6 +103,9 @@ dependencies {
     // Date Picker
     implementation(libs.datetime)
 
+    // Youtube Player
+    implementation(libs.youtube)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
