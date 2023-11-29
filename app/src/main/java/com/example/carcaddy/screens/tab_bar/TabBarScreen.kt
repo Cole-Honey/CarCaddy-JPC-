@@ -35,7 +35,6 @@ import com.example.carcaddy.screens.vehicle_details.VehicleDetailsScreen
 @Composable
 fun TabBarScreen(
     vin: String,
-    logIds: List<Long>,
     navController: NavController,
     modifier: Modifier = Modifier
 ) {

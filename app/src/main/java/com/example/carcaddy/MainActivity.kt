@@ -75,19 +75,15 @@ fun SetUpNavGraph(
         }
 
         composable(
-            route = Directions.TabBar.path + "/{vin}" + "/{logIds}",
+            route = Directions.TabBar.path + "/{vin}",
             arguments = listOf(
                 navArgument(name = "vin") { type = NavType.StringType },
-                navArgument(name = "logIds") { type = NavType.StringType }
                 )
         ) {
 
             TabBarScreen(
                 vin = it.arguments?.getString("vin")
                     ?: throw Exception("Expected VIN but didn't get it"),
-                logIds = it.arguments?.getString("logIds")?.let {
-                    Gson().fromJson(it, object : TypeToken<List<Long>>() {}.type)
-                } ?: emptyList(),
                 navController = navController
             )
         }

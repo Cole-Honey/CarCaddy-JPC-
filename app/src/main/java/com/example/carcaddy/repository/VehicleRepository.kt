@@ -59,13 +59,13 @@ class VehicleRepository @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-    suspend fun getAllLogs(logs: List<Long>): Flow<Response<List<MaintenanceLog>>> = flow {
+    suspend fun getAllLogs(vin: String): Flow<Response<List<MaintenanceLog>>> = flow {
         emit(Response.Loading())
-        if (logs.isEmpty()) {
+        if (vin.isEmpty()) {
             emit(Response.Success(emptyList()))
             return@flow
         }
-        database.vehicleDao().getAllLogs(logs).let {
+        database.vehicleDao().getAllLogs(vin).let {
             emit(Response.Success(it))
             return@flow
         }

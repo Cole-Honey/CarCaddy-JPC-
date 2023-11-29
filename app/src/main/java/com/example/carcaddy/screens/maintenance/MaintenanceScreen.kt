@@ -1,8 +1,8 @@
 package com.example.carcaddy.screens.maintenance
 
+import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -16,12 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.carcaddy.screens.topbar_interactions.maintenance_drawer.DrawerContent
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceEmpty
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceLoading
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceSuccess
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceTopBar
 import com.example.carcaddy.screens.topbar_interactions.maintenance.PopupScreen
+import com.example.carcaddy.screens.topbar_interactions.maintenance_drawer.DrawerContent
 import com.example.carcaddy.utils.Response
 import kotlinx.coroutines.launch
 
@@ -35,7 +35,7 @@ fun MaintenanceScreen(
 ) {
 
     LaunchedEffect(Unit) {
-        viewModel.getAllLogs(viewModel.passedLogs)
+        viewModel.getAllLogs(vin)
     }
 
     val logsState by viewModel.logs.collectAsStateWithLifecycle()
@@ -47,16 +47,8 @@ fun MaintenanceScreen(
         mutableStateOf(false)
     }
 
-    var isDrawerOpen by rememberSaveable {
-        mutableStateOf(false)
-    }
-
     val openBottomSheet: () -> Unit = {
         isSheetOpen = true
-    }
-
-    val openDrawer: () -> Unit = {
-        isDrawerOpen = true
     }
 
     val scaffoldState = rememberScaffoldState()
@@ -100,14 +92,13 @@ fun MaintenanceScreen(
                     },
                     onItemDelete = { log ->
                         viewModel.deleteLog(log)
-                        viewModel.getAllLogs(viewModel.passedLogs)
+                        viewModel.getAllLogs(vin)
                     },
                 )
 
                 PopupScreen(
                     onSave = {
                         viewModel.addLog(vin, it)
-                        viewModel.getAllLogs(viewModel.passedLogs)
                         isSheetOpen = false
                     },
                     isSheetOpen = isSheetOpen,

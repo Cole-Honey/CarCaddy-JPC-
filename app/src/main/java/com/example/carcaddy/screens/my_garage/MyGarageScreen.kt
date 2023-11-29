@@ -67,22 +67,9 @@ fun MyGarageScreen(
                 innerPadding = innerPadding,
                 onItemClick = { selectedVehicle ->
                     val vin = selectedVehicle.vehicle.vin
-                    val logIds = Gson().toJson(selectedVehicle.logs.map { it.logId })
-                    Log.d("Navigation", "logIds: $logIds")
-                    val navList = if (logIds.isEmpty()) {
-                        null
-                    } else {
-                        logIds
-                    }
 
                     navController.navigate(
-                        Directions.TabBar.path + "/$vin${
-                            if (navList != null) {
-                                "/$navList"
-                            } else {
-                                ""
-                            }
-                        }"
+                        Directions.TabBar.path + "/$vin"
                     )
                     Log.d("Navigation", "The Passed VIN Was: $vin")
                 },

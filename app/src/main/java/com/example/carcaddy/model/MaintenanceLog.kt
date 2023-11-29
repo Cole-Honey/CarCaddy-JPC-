@@ -1,5 +1,6 @@
 package com.example.carcaddy.model
 
+import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
@@ -12,6 +13,7 @@ data class MaintenanceLog(
     val date: Date?,
     val cost: Double?,
     val description: String?,
+    val image: Uri? = null,
     val vin: String
 ) {
     enum class MaintenanceType {

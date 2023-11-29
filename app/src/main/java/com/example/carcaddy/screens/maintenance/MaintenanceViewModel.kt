@@ -1,6 +1,7 @@
 package com.example.carcaddy.screens.maintenance
 
 import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +13,10 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import java.util.Date
 import javax.inject.Inject
@@ -22,13 +27,12 @@ class MaintenanceViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val logIdsString: String? = savedStateHandle.get("logIds")
-    val passedLogs: List<Long> = if (!logIdsString.isNullOrBlank()) {
-        Gson().fromJson(logIdsString, object : TypeToken<List<Long>>() {}.type)
-    } else {
-        emptyList()
-    }
-
+//    val vinString: String? = savedStateHandle.get("vin")
+//    val passedLogs: String = if (!vinString.isNullOrBlank()) {
+//        Gson().fromJson(vinString, object : TypeToken<String>() {}.type)
+//    } else {
+//        ""
+//    }
 
     var _logs = MutableStateFlow<Response<List<MaintenanceLog>>>(Response.Loading())
     var logs = _logs.asStateFlow()
@@ -39,9 +43,9 @@ class MaintenanceViewModel @Inject constructor(
         selectedLog = log
     }
 
-    fun getAllLogs(logs: List<Long>) {
+    fun getAllLogs(vin: String) {
         viewModelScope.launch {
-            repository.getAllLogs(logs)
+            repository.getAllLogs(vin)
                 .collect { response ->
                     _logs.value = response
                     Log.d("ViewModel", "Logs data retrieved")
@@ -49,7 +53,6 @@ class MaintenanceViewModel @Inject constructor(
         }
     }
 
-    // Inside your ViewModel
     fun addLog(
         vin: String,
         log: MaintenanceLog
@@ -63,7 +66,11 @@ class MaintenanceViewModel @Inject constructor(
                 vin = vin
             )
             repository.addLog(newLog)
-            Log.d("ViewModel", "Log added: $log")
+
+            val updatedLogs = repository.getAllLogs(vin)
+            updatedLogs.collect {
+                _logs.value = it
+            }
         }
     }
 

@@ -130,7 +130,7 @@ fun AddLogScreen(
                     MaintenanceLog(
                         maintenanceType = maintenanceType,
                         date = selectedDate,
-                        cost = costText.toDoubleOrNull(),
+                        cost = costText.toDouble(),
                         description = description,
                         vin = vin
                     )
