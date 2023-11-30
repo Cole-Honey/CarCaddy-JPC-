@@ -47,6 +47,15 @@ class VehicleRepository @Inject constructor(
 
     }.flowOn(dispatcher)
 
+    suspend fun getLogById(log: String): Flow<Response<MaintenanceLog>> = flow {
+        emit(Response.Loading())
+
+        database.vehicleDao().getLogById(log).let {
+            emit(Response.Success(it))
+            return@flow
+        }
+    }.flowOn(dispatcher)
+
     suspend fun getVehicleWithLogs(): Flow<Response<List<VehicleWithLogs>>> = flow {
         emit(Response.Loading())
 

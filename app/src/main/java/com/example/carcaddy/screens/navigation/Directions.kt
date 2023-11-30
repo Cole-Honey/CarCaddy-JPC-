@@ -7,6 +7,7 @@ sealed class Directions(
     data object MyGarage: Directions("my_garage")
     data object FetchVin: Directions("fetch_vin")
     data object TabBar: Directions("tab_bar")
+    data object LogDetail: Directions("log_detail")
     data object CheckOil: Directions("check_oil")
     data object ChangeOil: Directions("change_oil")
     data object CheckBrakes: Directions("check_brakes")

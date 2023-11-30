@@ -25,6 +25,7 @@ import com.example.carcaddy.screens.how_to.CheckBrakes
 import com.example.carcaddy.screens.how_to.CheckOil
 import com.example.carcaddy.screens.how_to.CheckTires
 import com.example.carcaddy.screens.how_to.CheckTransmissionFluid
+import com.example.carcaddy.screens.log_detail.LogDetailScreen
 import com.example.carcaddy.screens.my_garage.MyGarageScreen
 import com.example.carcaddy.screens.navigation.Directions
 import com.example.carcaddy.screens.splash_screen.SplashScreen
@@ -78,7 +79,7 @@ fun SetUpNavGraph(
         composable(
             route = Directions.TabBar.path + "/{vin}",
             arguments = listOf(
-                navArgument(name = "vin") { type = NavType.StringType },
+                navArgument(name = "vin") { type = NavType.StringType }
                 )
         ) {
 
@@ -86,6 +87,18 @@ fun SetUpNavGraph(
                 vin = it.arguments?.getString("vin")
                     ?: throw Exception("Expected VIN but didn't get it"),
                 navController = navController
+            )
+        }
+
+        composable(
+            route = Directions.LogDetail.path + "/{logId}",
+            arguments = listOf(
+                navArgument(name = "logId") { type = NavType.StringType }
+            )
+        ) {
+            LogDetailScreen(
+                log = it.arguments?.getString("logId")
+                    ?: throw Exception("Expected LogId but didn't get it")
             )
         }
 

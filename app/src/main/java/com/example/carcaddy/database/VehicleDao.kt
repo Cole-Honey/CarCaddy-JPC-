@@ -36,6 +36,9 @@ interface VehicleDao {
     @Query("SELECT * FROM maintenance_table WHERE vin IN (:vin) ORDER BY date DESC")
     suspend fun getAllLogs(vin: String): List<MaintenanceLog>
 
+    @Query("SELECT * FROM maintenance_table WHERE logId = :log LIMIT 1")
+    suspend fun getLogById(log: String): MaintenanceLog
+
     @Insert
     suspend fun addLog(log: MaintenanceLog)
 
