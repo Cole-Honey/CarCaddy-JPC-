@@ -40,7 +40,7 @@ fun CheckOil(
         ),
         Step(
             id = 5, number = "Step 5", description =
-            "Remove the dipstick again and check the oil levelagainst the minimum and maximum markings."
+            "Remove the dipstick again and check the oil level against the minimum and maximum markings."
         ),
         Step(
             id = 6, number = "Step 6", description =

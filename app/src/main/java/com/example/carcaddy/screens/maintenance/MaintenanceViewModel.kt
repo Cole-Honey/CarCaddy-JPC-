@@ -27,13 +27,6 @@ class MaintenanceViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-//    val vinString: String? = savedStateHandle.get("vin")
-//    val passedLogs: String = if (!vinString.isNullOrBlank()) {
-//        Gson().fromJson(vinString, object : TypeToken<String>() {}.type)
-//    } else {
-//        ""
-//    }
-
     var _logs = MutableStateFlow<Response<List<MaintenanceLog>>>(Response.Loading())
     var logs = _logs.asStateFlow()
 
@@ -48,7 +41,6 @@ class MaintenanceViewModel @Inject constructor(
             repository.getAllLogs(vin)
                 .collect { response ->
                     _logs.value = response
-                    Log.d("ViewModel", "Logs data retrieved")
                 }
         }
     }
@@ -63,6 +55,7 @@ class MaintenanceViewModel @Inject constructor(
                 date = log.date,
                 cost = log.cost,
                 description = log.description,
+                image = log.image,
                 vin = vin
             )
             repository.addLog(newLog)

@@ -24,7 +24,7 @@ fun ChangeBrakes(
     val steps = listOf(
         Step(
             id = 1, number = "Step 1", description =
-            "Park your vehicle on a flat surface and engage the parking braketo ensure stability."
+            "Park your vehicle on a flat surface and engage the parking brake to ensure stability."
         ),
         Step(
             id = 2, number = "Step 2", description =

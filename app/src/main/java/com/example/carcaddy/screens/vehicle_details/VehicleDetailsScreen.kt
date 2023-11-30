@@ -97,8 +97,4 @@ fun VehicleDetailsScreen(
             }
         }
     }
-
-    Log.d("Composable", "VehicleState: $vehicleState")
-    Log.d("Composable", "Vehicle: $vehicle")
-
 }

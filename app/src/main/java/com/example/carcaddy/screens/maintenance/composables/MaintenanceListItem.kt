@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
+import androidx.compose.material.icons.outlined.FilePresent
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,7 +45,7 @@ fun MaintenanceListItem(
                         fontSize = 15.sp,
                         color = Color.Gray
                     )
-                    LogText(log.maintenanceType.name.lowercase().capitalize(Locale.ROOT))
+                    ListItemLogText(log.maintenanceType.name.lowercase().capitalize(Locale.ROOT))
                 }
 
                 Column(
@@ -56,7 +56,7 @@ fun MaintenanceListItem(
                         fontSize = 15.sp,
                         color = Color.Gray
                     )
-                    LogText(log.date?.let {
+                    ListItemLogText(log.date?.let {
                         SimpleDateFormat("MMM dd", Locale.getDefault()).format(
                             it
                         )
@@ -71,16 +71,29 @@ fun MaintenanceListItem(
                         fontSize = 15.sp,
                         color = Color.Gray
                     )
-                    LogText(log.cost.toString())
+                    ListItemLogText(log.cost.toString())
+                }
+
+                Column(
+                    modifier = Modifier.weight(0.3f)
+                ) {
+                    if (log.image != null) {
+                        Icon(
+                            imageVector = Icons.Outlined.FilePresent,
+                            contentDescription = "Upload File"
+                        )
+                    }
                 }
             }
 
-            Text(
-                text = "Description",
-                fontSize = 15.sp,
-                color = Color.Gray
-            )
-            LogText(log.description)
+            Column {
+                Text(
+                    text = "Description",
+                    fontSize = 15.sp,
+                    color = Color.Gray
+                )
+                ListItemLogText(log.description)
+            }
         }
         Icon(
             modifier = Modifier.size(24.dp),

@@ -115,10 +115,4 @@ fun EditScreen(
             }
         }
     }
-
-    Log.d("Composable", "Name: $name")
-    Log.d("Composable", "Mileage: $mileage")
-    Log.d("Composable", "Vehicle Image Uri: $vehicleImage")
-    Log.d("Composable", "Insurance Image Uri: $insuranceImage")
-    Log.d("Composable", "Registration Image Uri: $registrationImage")
 }

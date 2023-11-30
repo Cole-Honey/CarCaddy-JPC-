@@ -1,5 +1,6 @@
 package com.example.carcaddy.screens.maintenance
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,7 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.example.carcaddy.screens.add_log_screen.AddLogScreen
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceEmpty
+import com.example.carcaddy.screens.maintenance.composables.MaintenanceError
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceLoading
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceSuccess
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceTopBar
@@ -55,6 +58,21 @@ fun MaintenanceScreen(
 
     val scope = rememberCoroutineScope()
 
+    val (logs, errorMessage) = when (logsState) {
+        is Response.Success -> {
+            val data = (logsState as Response.Success).data
+            data to null
+        }
+
+        is Response.Error -> {
+            null to "Error: ${(logsState as Response.Error).message}"
+        }
+
+        else -> {
+            null to null
+        }
+    }
+
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -78,37 +96,66 @@ fun MaintenanceScreen(
         },
     ) { innerPadding ->
 
-        when (val state = logsState) {
-            is Response.Loading -> {
-                MaintenanceLoading()
-            }
+        if ((logs != null) && logs.isNotEmpty()) {
+            MaintenanceSuccess(
+                logs = logs,
+                innerPadding = innerPadding,
+                onItemClick = { log ->
+                              viewModel.onLogClicked(log)
+                },
+                onItemDelete = { log ->
+                    viewModel.deleteLog(log)
+                    viewModel.getAllLogs(vin)
+                }
+            )
 
-            is Response.Success -> {
-                MaintenanceSuccess(
-                    logs = state.data,
-                    innerPadding = innerPadding,
-                    onItemClick = { log ->
-                        viewModel.onLogClicked(log)
-                    },
-                    onItemDelete = { log ->
-                        viewModel.deleteLog(log)
-                        viewModel.getAllLogs(vin)
-                    },
-                )
+            PopupScreen(
+                onSave = {
+                    viewModel.addLog(vin, it)
+                    isSheetOpen = false
+                },
+                isSheetOpen = isSheetOpen,
+                onCloseSheet = { isSheetOpen = false }
+            )
 
-                PopupScreen(
-                    onSave = {
-                        viewModel.addLog(vin, it)
-                        isSheetOpen = false
-                    },
-                    isSheetOpen = isSheetOpen,
-                    onCloseSheet = { isSheetOpen = false }
-                )
-            }
-
-            is Response.Error -> {
-                MaintenanceEmpty()
-            }
+        } else if (errorMessage != null) {
+            MaintenanceError(message = errorMessage)
+            println("Error Loading Logs: $errorMessage")
+        } else {
+            MaintenanceEmpty()
         }
+
+//        when (val state = logsState) {
+//            is Response.Loading -> {
+//                MaintenanceLoading()
+//            }
+//
+//            is Response.Success -> {
+//                    MaintenanceSuccess(
+//                        logs = state.data,
+//                        innerPadding = innerPadding,
+//                        onItemClick = { log ->
+//                            viewModel.onLogClicked(log)
+//                        },
+//                        onItemDelete = { log ->
+//                            viewModel.deleteLog(log)
+//                            viewModel.getAllLogs(vin)
+//                        },
+//                    )
+//
+//                    PopupScreen(
+//                        onSave = {
+//                            viewModel.addLog(vin, it)
+//                            isSheetOpen = false
+//                        },
+//                        isSheetOpen = isSheetOpen,
+//                        onCloseSheet = { isSheetOpen = false }
+//                    )
+//            }
+//
+//            is Response.Error -> {
+//                MaintenanceEmpty()
+//            }
+//        }
     }
 }

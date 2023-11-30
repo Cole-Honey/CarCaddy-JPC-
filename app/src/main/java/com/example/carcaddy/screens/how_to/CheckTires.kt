@@ -64,7 +64,7 @@ fun CheckTires(
         ),
         Step(
             id = 11, number = "Step 11", description =
-            "Verify that the wheel lug nutsare properly tightened using a lug wrench."
+            "Verify that the wheel lug nuts are properly tightened using a lug wrench."
         ),
         Step(
             id = 12, number = "Step 12", description =

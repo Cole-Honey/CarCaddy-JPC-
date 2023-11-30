@@ -37,27 +37,20 @@ fun PhotoPicker(
             onImageSelected(uri)
         }
     )
-
-    LazyColumn(
-        modifier = modifier
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
     ) {
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                Button(
-                    onClick = {
-                        singlePhotoPickerLauncher.launch(
-                            PickVisualMediaRequest(
-                                ActivityResultContracts.PickVisualMedia.ImageOnly
-                            )
-                        )
-                    }
-                ) {
-                    Text(text = buttonText)
-                }
+        Button(
+            onClick = {
+                singlePhotoPickerLauncher.launch(
+                    PickVisualMediaRequest(
+                        ActivityResultContracts.PickVisualMedia.ImageOnly
+                    )
+                )
             }
+        ) {
+            Text(text = buttonText)
         }
     }
 }

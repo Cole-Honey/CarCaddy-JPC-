@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -108,14 +109,14 @@ fun MaintenanceSuccess(
                         MaintenanceListItem(
                             log = log,
                             onItemClick = { onItemClick(log) },
-                            onItemDelete = { onItemDelete(log) })
+                            onItemDelete = { onItemDelete(log) }
+                        )
                     }
-                    // Adding a divider for better visual separation
-                    Divider(
-                        color = Color.Black,
-                        thickness = 1.dp
-                    )
                 }
+            )
+            Divider(
+                color = Color.LightGray,
+                thickness = 1.dp
             )
         }
     }

@@ -98,7 +98,6 @@ fun MyGarageSuccess(
                             }
                         }
                     },
-                    // Customizing the dismiss content with improved UI
                     dismissContent = {
                         Column(
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
@@ -107,11 +106,11 @@ fun MyGarageSuccess(
                                 vehicle = vehicle,
                                 onItemClick = { onItemClick(vehicle) })
                         }
-                        Divider(
-                            color = Color.Black,
-                            thickness = 1.dp
-                        )
                     }
+                )
+                Divider(
+                    color = Color.LightGray,
+                    thickness = 1.dp
                 )
             }
         }

@@ -71,14 +71,12 @@ fun MyGarageScreen(
                     navController.navigate(
                         Directions.TabBar.path + "/$vin"
                     )
-                    Log.d("Navigation", "The Passed VIN Was: $vin")
                 },
                 onItemDelete = { selectedVehicle ->
                     viewModel.deleteVehicle(selectedVehicle.vehicle)
                     viewModel.getVehicles()
                 },
             )
-            println("Successfully loaded vehicles")
         } else if (errorMessage != null) {
             MyGarageError(message = errorMessage)
             println("Error loading vehicles: $errorMessage")

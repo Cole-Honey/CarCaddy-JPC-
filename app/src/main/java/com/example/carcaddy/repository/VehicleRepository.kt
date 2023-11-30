@@ -81,9 +81,7 @@ class VehicleRepository @Inject constructor(
         return withContext(dispatcher) {
             try {
                 database.vehicleDao().addLog(log)
-                Log.d("Repository", "Log added successfully: $log")
             } catch (e: Exception) {
-                Log.e("Repository", "Error adding log: $e")
                 // Propagate the exception if needed
                 throw e
             }
