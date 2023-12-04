@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.carcaddy.model.MaintenanceLog
-import com.example.carcaddy.screens.topbar_interactions.maintenance.composables.BottomSheet
+import com.example.carcaddy.screens.add_log_screen.AddLogScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,9 +41,7 @@ fun PopupScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                BottomSheet(
-                    onSave = onSave
-                )
+                AddLogScreen(onSave = onSave)
             }
         }
     }

@@ -18,6 +18,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceEmpty
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceError
+import com.example.carcaddy.screens.maintenance.composables.MaintenanceLoading
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceSuccess
 import com.example.carcaddy.screens.maintenance.composables.MaintenanceTopBar
 import com.example.carcaddy.screens.navigation.Directions
@@ -56,7 +57,7 @@ fun MaintenanceScreen(
 
     val scope = rememberCoroutineScope()
 
-    val (logs, errorMessage) = when (logsState) {
+    val (_, errorMessage) = when (logsState) {
         is Response.Success -> {
             val data = (logsState as Response.Success).data
             data to null
@@ -94,38 +95,42 @@ fun MaintenanceScreen(
         },
     ) { innerPadding ->
 
-        if ((logs != null) && logs.isNotEmpty()) {
-            MaintenanceSuccess(
-                logs = logs,
-                innerPadding = innerPadding,
-                onItemClick = { log ->
-                    viewModel.onLogClicked(log)
+        when (val state = logsState) {
+            is Response.Loading -> {
+                MaintenanceLoading()
+            }
 
-                    navController.navigate(
+            is Response.Success -> {
+                MaintenanceSuccess(
+                    logs = state.data,
+                    innerPadding = innerPadding,
+                    onItemClick = { log ->
+                        viewModel.onLogClicked(log)
 
-                        Directions.LogDetail.path + "$log"
-                    )
-                },
-                onItemDelete = { log ->
-                    viewModel.deleteLog(log)
-                    viewModel.getAllLogs(vin)
-                }
-            )
+                        navController.navigate(
 
-            PopupScreen(
-                onSave = {
-                    viewModel.addLog(vin, it)
-                    isSheetOpen = false
-                },
-                isSheetOpen = isSheetOpen,
-                onCloseSheet = { isSheetOpen = false }
-            )
+                            Directions.LogDetail.path + "${log.logId}"
+                        )
+                    },
+                    onItemDelete = { log ->
+                        viewModel.deleteLog(log)
+                        viewModel.getAllLogs(vin)
+                    }
+                )
 
-        } else if (errorMessage != null) {
-            MaintenanceError(message = errorMessage)
-            println("Error Loading Logs: $errorMessage")
-        } else {
-            MaintenanceEmpty()
+                PopupScreen(
+                    onSave = {
+                        viewModel.addLog(vin, it)
+                        isSheetOpen = false
+                    },
+                    isSheetOpen = isSheetOpen,
+                    onCloseSheet = { isSheetOpen = false }
+                )
+            }
+
+            is Response.Error -> {
+                MaintenanceEmpty()
+            }
         }
     }
 }

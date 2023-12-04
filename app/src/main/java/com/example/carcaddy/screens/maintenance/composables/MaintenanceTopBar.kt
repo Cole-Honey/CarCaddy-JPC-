@@ -49,7 +49,7 @@ fun MaintenanceTopBar(
         },
 
         actions = {
-            IconButton(onClick = openScreen) {
+            IconButton(onClick = { openScreen() }) {
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = "Add Log To Vehicle",
