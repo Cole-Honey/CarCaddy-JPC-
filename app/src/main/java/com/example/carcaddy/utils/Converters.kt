@@ -2,18 +2,21 @@ package com.example.carcaddy.utils
 
 import android.net.Uri
 import androidx.room.TypeConverter
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 import java.util.Date
 
 class Converters {
 
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+    fun dateToString(date: LocalDate): Long {
+        return date.toEpochDay()
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return date?.time?.toLong()
+    fun stringToDate(value: Long): LocalDate {
+        return LocalDate.ofEpochDay(value)
     }
 
     @TypeConverter

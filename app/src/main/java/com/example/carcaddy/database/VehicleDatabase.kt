@@ -14,7 +14,7 @@ import com.example.carcaddy.utils.Converters
         Vehicle::class,
         MaintenanceLog::class
     ],
-    version = 9,
+    version = 12,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

@@ -15,6 +15,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
@@ -23,17 +24,17 @@ fun DocumentImage(
     image: Uri,
     modifier: Modifier = Modifier
 ) {
-    val borderStroke = 1.dp
 
     Box(
         modifier = modifier
             .padding(3.dp)
             .clip(RoundedCornerShape(10f))
-            .aspectRatio(2f) // Set the aspect ratio to achieve half the height of the width
+           // .aspectRatio(2f) // Set the aspect ratio to achieve half the height of the width
             .graphicsLayer()
     ) {
         AsyncImage(
             model = image,
+            contentScale = ContentScale.FillHeight,
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize() // Make the image fill the entire Box

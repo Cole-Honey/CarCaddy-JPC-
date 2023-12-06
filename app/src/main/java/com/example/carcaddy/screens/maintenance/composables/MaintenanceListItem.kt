@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.carcaddy.model.MaintenanceLog
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 @Composable
@@ -28,6 +29,9 @@ fun MaintenanceListItem(
     onItemDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd")
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceAround,
@@ -56,11 +60,7 @@ fun MaintenanceListItem(
                         fontSize = 15.sp,
                         color = Color.Gray
                     )
-                    ListItemLogText(log.date?.let {
-                        SimpleDateFormat("MMM dd", Locale.getDefault()).format(
-                            it
-                        )
-                    })
+                    ListItemLogText(log.date?.format(dateFormatter))
                 }
 
                 Column(

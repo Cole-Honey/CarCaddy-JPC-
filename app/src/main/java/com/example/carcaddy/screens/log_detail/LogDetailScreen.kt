@@ -22,7 +22,7 @@ fun LogDetailScreen(
 
     val logState by viewModel.log.collectAsStateWithLifecycle()
 
-    val (log, errorMessage) = when (logState) {
+    val (_, errorMessage) = when (logState) {
         is Response.Success -> {
             val data = (logState as Response.Success).data
             data to null

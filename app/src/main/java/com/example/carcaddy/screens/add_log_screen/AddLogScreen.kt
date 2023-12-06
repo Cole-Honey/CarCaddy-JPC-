@@ -7,15 +7,20 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -26,24 +31,29 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.carcaddy.model.MaintenanceLog
 import com.example.carcaddy.model.MaintenanceLog.MaintenanceType
+import com.example.carcaddy.screens.composables.DatePicker
 import com.example.carcaddy.screens.composables.PhotoPicker
-import java.text.SimpleDateFormat
-import java.util.Date
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @SuppressLint("SimpleDateFormat")
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddLogScreen(
     onSave: (MaintenanceLog) -> Unit,
     modifier: Modifier = Modifier
 ) {
     // State variables
-    val selectedDate by remember { mutableStateOf(Date()) }
+    var selectedDate by remember { mutableStateOf<LocalDate?>(LocalDate.now()) }
     var maintenanceType by remember { mutableStateOf(MaintenanceType.CHOOSE_TYPE) }
     var costText by remember { mutableStateOf("0.0") }
     var description by remember { mutableStateOf("") }
@@ -58,6 +68,18 @@ fun AddLogScreen(
 
     // State for scrollState
     val scrollState = rememberScrollState()
+
+    // Keyboard Controller
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+
+    // Dialog State
+    var isDatePickerVisible by remember { mutableStateOf(false) }
+
+    val openPicker: () -> Unit = {
+        isDatePickerVisible = true
+    }
 
     // UI layout
     Surface(
@@ -75,15 +97,24 @@ fun AddLogScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            selectedDate?.let {
+                Text(
+                    text = it.format(dateFormatter),
+                    fontSize = 20.sp
+                )
+            }
+
             // Date input
-            OutlinedTextField(
-                value = SimpleDateFormat("MM/dd/yyyy").format(selectedDate),
-                onValueChange = { /* Update selectedDate */ },
-                label = { Text("Date") },
-                readOnly = true,
-                modifier = Modifier.clickable {
-                    // Show the DatePicker when the field is clicked
-                    // showDialog.value = true
+            Button(onClick = { openPicker() }) {
+                Text(text = "Choose Date")
+            }
+            DatePicker(
+                isPickerOpen = isDatePickerVisible,
+                selectedDate = selectedDate,
+                onDismissRequest = { isDatePickerVisible = false },
+                onDateSelected = { date ->
+                    selectedDate = date.atStartOfDay().toLocalDate()
                 }
             )
 
@@ -94,7 +125,14 @@ fun AddLogScreen(
                     isDropdownExpanded = !isDropdownExpanded
                 }
             ) {
-                Text("Maintenance Type: $maintenanceType")
+
+                Row {
+                    Text("Maintenance Type: $maintenanceType")
+                    Icon(
+                        imageVector = Icons.Filled.KeyboardArrowDown,
+                        contentDescription = "Choose Maintenance Type"
+                    )
+                }
 
                 DropdownMenu(
                     expanded = isDropdownExpanded,
@@ -110,7 +148,7 @@ fun AddLogScreen(
                                 isDropdownExpanded = false
                             },
                             text = {
-                                Text(option)
+                                Text(text = option,)
                             }
                         )
                     }
@@ -121,10 +159,19 @@ fun AddLogScreen(
             OutlinedTextField(
                 value = costText,
                 onValueChange = {
-                    costText = it
+                    costText = if (it.contains(",")) {
+                        val cleanedValue = it.replace(",", "")
+                        cleanedValue
+                    } else {
+                        it
+                    }
                 },
                 label = { Text("Cost") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                keyboardActions = KeyboardActions(onSearch = {
+                    keyboardController?.hide()
+                }),
+                singleLine = true
             )
 
             // Description Input

@@ -57,7 +57,7 @@ fun MaintenanceScreen(
 
     val scope = rememberCoroutineScope()
 
-    val (_, errorMessage) = when (logsState) {
+    val (_, _) = when (logsState) {
         is Response.Success -> {
             val data = (logsState as Response.Success).data
             data to null
@@ -106,10 +106,11 @@ fun MaintenanceScreen(
                     innerPadding = innerPadding,
                     onItemClick = { log ->
                         viewModel.onLogClicked(log)
+                        println(log.date)
 
                         navController.navigate(
 
-                            Directions.LogDetail.path + "${log.logId}"
+                            Directions.LogDetail.path + "/${log.logId}"
                         )
                     },
                     onItemDelete = { log ->
