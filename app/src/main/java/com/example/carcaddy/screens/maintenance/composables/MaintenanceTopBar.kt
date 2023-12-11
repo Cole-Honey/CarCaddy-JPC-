@@ -34,7 +34,8 @@ fun MaintenanceTopBar(
             Text(
                 text = "Logs",
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.secondary
             )
         },
 
@@ -43,7 +44,7 @@ fun MaintenanceTopBar(
                 Icon(
                     imageVector = Icons.Outlined.Menu,
                     contentDescription = "How To, Toggle Drawer",
-                    tint = MaterialTheme.colorScheme.onPrimary
+                    tint = MaterialTheme.colorScheme.secondary
                 )
             }
         },
@@ -52,8 +53,8 @@ fun MaintenanceTopBar(
             IconButton(onClick = { openScreen() }) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription = "Add Log To Vehicle",
-                    tint = MaterialTheme.colorScheme.onPrimary
+                    contentDescription = "Save Log",
+                    tint = MaterialTheme.colorScheme.secondary
                 )
             }
         },

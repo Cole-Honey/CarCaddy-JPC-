@@ -1,8 +1,10 @@
 package com.example.carcaddy.screens.maintenance
 
+import androidx.compose.foundation.background
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -93,6 +95,8 @@ fun MaintenanceScreen(
                 }
             )
         },
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.tertiary)
     ) { innerPadding ->
 
         when (val state = logsState) {

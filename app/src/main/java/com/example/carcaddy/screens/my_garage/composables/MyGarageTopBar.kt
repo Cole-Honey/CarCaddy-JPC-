@@ -33,7 +33,8 @@ fun MyGarageTopBar(
             Text(
                 text = name,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.secondary
             )
         },
         actions = {
@@ -41,7 +42,7 @@ fun MyGarageTopBar(
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = "Add Vehicle To Garage",
-                    tint = MaterialTheme.colorScheme.onPrimary
+                    tint = MaterialTheme.colorScheme.secondary
                 )
             }
         },

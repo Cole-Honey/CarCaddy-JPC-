@@ -101,13 +101,17 @@ fun AddLogScreen(
             selectedDate?.let {
                 Text(
                     text = it.format(dateFormatter),
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.secondary
                 )
             }
 
             // Date input
             Button(onClick = { openPicker() }) {
-                Text(text = "Choose Date")
+                Text(
+                    text = "Choose Date",
+                    color = MaterialTheme.colorScheme.secondary
+                )
             }
             DatePicker(
                 isPickerOpen = isDatePickerVisible,
@@ -127,10 +131,15 @@ fun AddLogScreen(
             ) {
 
                 Row {
-                    Text("Maintenance Type: $maintenanceType")
+                    Text(
+                        text = "Maintenance Type: $maintenanceType",
+                        color = MaterialTheme.colorScheme.secondary
+
+                    )
                     Icon(
                         imageVector = Icons.Filled.KeyboardArrowDown,
-                        contentDescription = "Choose Maintenance Type"
+                        contentDescription = "Choose Maintenance Type",
+                        tint = MaterialTheme.colorScheme.secondary
                     )
                 }
 
@@ -148,7 +157,10 @@ fun AddLogScreen(
                                 isDropdownExpanded = false
                             },
                             text = {
-                                Text(text = option,)
+                                Text(
+                                    text = option,
+                                    color = MaterialTheme.colorScheme.secondary
+                                )
                             }
                         )
                     }
@@ -166,7 +178,7 @@ fun AddLogScreen(
                         it
                     }
                 },
-                label = { Text("Cost") },
+                label = { Text(text = "Cost", color = MaterialTheme.colorScheme.secondary) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 keyboardActions = KeyboardActions(onSearch = {
                     keyboardController?.hide()
@@ -178,7 +190,7 @@ fun AddLogScreen(
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
-                label = { Text("Description") },
+                label = { Text(text = "Description", color = MaterialTheme.colorScheme.secondary) },
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done,
                     keyboardType = KeyboardType.Text,
@@ -208,7 +220,10 @@ fun AddLogScreen(
                     )
                 }
             ) {
-                Text("Save Log")
+                Text(
+                    text = "Save Log",
+                    color = MaterialTheme.colorScheme.secondary
+                )
             }
         }
     }

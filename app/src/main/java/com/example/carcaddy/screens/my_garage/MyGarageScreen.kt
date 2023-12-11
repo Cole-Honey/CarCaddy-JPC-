@@ -1,7 +1,9 @@
 package com.example.carcaddy.screens.my_garage
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -59,7 +61,9 @@ fun MyGarageScreen(
                 openScreen = { navController.navigate(Directions.FetchVin.path) }, // Use a Composable lambda
                 modifier = modifier
             )
-        }
+        },
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.tertiary)
     ) { innerPadding ->
         if ((vehicle != null) && vehicle.isNotEmpty()) {
             MyGarageSuccess(

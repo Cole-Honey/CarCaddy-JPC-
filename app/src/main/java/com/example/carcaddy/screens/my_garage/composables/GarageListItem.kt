@@ -1,5 +1,6 @@
 package com.example.carcaddy.screens.my_garage.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +28,9 @@ fun GarageListItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
-        modifier = modifier.clickable { onItemClick() }
+        modifier = modifier
+            .clickable { onItemClick() }
+            .background(MaterialTheme.colorScheme.tertiary)
     ) {
 
         // Image of vehicle goes here

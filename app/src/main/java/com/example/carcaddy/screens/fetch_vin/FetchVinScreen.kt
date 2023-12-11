@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -56,7 +57,7 @@ fun FetchVinScreen(
         Button(
             onClick = { onVinSubmitted() }
         ) {
-            Text("Submit VIN")
+            Text(text = "Submit VIN", color = MaterialTheme.colorScheme.secondary)
         }
 
         // Display loading, success, or error based on the fetchResult

@@ -20,6 +20,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
@@ -46,7 +47,8 @@ fun MyGarageSuccess(
 
     LazyColumn(
         contentPadding = innerPadding,
-        modifier = modifier,
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.tertiary),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start
     ) {
