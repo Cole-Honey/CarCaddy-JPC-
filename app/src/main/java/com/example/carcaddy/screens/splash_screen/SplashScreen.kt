@@ -33,7 +33,7 @@ fun SplashScreen(
 
         // Navigate to the next screen
         LaunchedEffect(Unit) {
-            delay(500) // Adjust the delay as needed
+            delay(3000) // Adjust the delay as needed
             navController.navigate(Directions.MyGarage.path)
         }
     }

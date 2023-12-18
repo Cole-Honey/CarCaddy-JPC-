@@ -8,6 +8,7 @@ sealed class Directions(
     data object FetchVin: Directions("fetch_vin")
     data object TabBar: Directions("tab_bar")
     data object LogDetail: Directions("log_detail")
+    data object AboutScreen: Directions("about_screen")
     data object CheckOil: Directions("check_oil")
     data object ChangeOil: Directions("change_oil")
     data object CheckBrakes: Directions("check_brakes")

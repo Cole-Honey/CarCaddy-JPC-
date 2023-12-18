@@ -1,5 +1,6 @@
 package com.example.carcaddy.screens.tab_bar
 
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,8 +10,8 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.LibraryBooks
-import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.outlined.QuestionMark
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.carcaddy.screens.about.AboutScreen
 import com.example.carcaddy.screens.maintenance.MaintenanceScreen
 import com.example.carcaddy.screens.vehicle_details.VehicleDetailsScreen
 
@@ -34,11 +36,12 @@ import com.example.carcaddy.screens.vehicle_details.VehicleDetailsScreen
 @Composable
 fun TabBarScreen(
     vin: String,
+    activity: ComponentActivity,
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
 
-    val screens = listOf("Home", "Logs", "Map")
+    val screens = listOf("Home", "Logs", "About")
 
     var selectedItem by rememberSaveable {
         mutableStateOf(screens.first())
@@ -93,6 +96,7 @@ fun TabBarScreen(
             ) {
                 getScreenForEachTab(
                     screen = selectedItem,
+                    activity = activity,
                     navController = navController,
                     vin = vin
                 )
@@ -106,17 +110,17 @@ fun getIconForScreen(screen: String): ImageVector {
     return when (screen) {
         "Home" -> Icons.Filled.DirectionsCar
         "Logs" -> Icons.Filled.LibraryBooks
-        "Map" -> Icons.Filled.Map
+        "About" -> Icons.Outlined.QuestionMark
         else -> Icons.Filled.Warning
     }
 }
 
 @Composable
-fun getScreenForEachTab(screen: String, navController: NavController, vin: String) {
+fun getScreenForEachTab(screen: String, activity: ComponentActivity, navController: NavController, vin: String) {
     when (screen) {
         "Home" -> VehicleDetailsScreen(navController)
         "Logs" -> MaintenanceScreen(vin, navController)
-//        "Map" -> MapScreen()
+        "About" -> AboutScreen(activity)
         else -> Text(text = "Selected Screen: $screen")
     }
 }

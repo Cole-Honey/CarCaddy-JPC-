@@ -48,7 +48,10 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     val navController = rememberNavController()
-                    SetUpNavGraph(navController = navController)
+                    SetUpNavGraph(
+                        navController = navController,
+                        activity = this
+                        )
                 }
             }
         }
@@ -57,6 +60,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SetUpNavGraph(
+    activity: ComponentActivity,
     navController: NavHostController
 ) {
     NavHost(
@@ -86,6 +90,7 @@ fun SetUpNavGraph(
             TabBarScreen(
                 vin = it.arguments?.getString("vin")
                     ?: throw Exception("Expected VIN but didn't get it"),
+                activity = activity,
                 navController = navController
             )
         }
