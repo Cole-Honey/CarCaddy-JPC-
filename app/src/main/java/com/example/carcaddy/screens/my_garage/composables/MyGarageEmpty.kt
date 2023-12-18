@@ -16,7 +16,7 @@ fun MyGarageEmpty() {
         modifier = Modifier.fillMaxSize()
     ) {
         Text(
-            text = "You have not added any vehicles to your garage! \n Click the plus sign to add you first vehicle!",
+            text = "You have not added any vehicles to your garage! \n Click the plus sign to add your first vehicle!",
             textAlign = TextAlign.Center
         )
     }
